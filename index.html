@@ -7,6 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+<!-- lamejs: pure-JS MP3 encoder, no server needed -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lamejs/1.2.1/lame.min.js"></script>
 <style>
 :root {
   --black:#080808;--black2:#0D0D0D;--black3:#111111;--card:#141414;--card2:#181818;
@@ -139,6 +141,11 @@ h1,h2,h3,h4,h5{font-family:'Syne',sans-serif;}
 .preset-btn{padding:10px 8px;background:var(--black3);border:1px solid var(--border2);border-radius:var(--radius3);color:var(--text2);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:var(--transition);text-align:center;}
 .preset-btn:hover,.preset-btn.active{border-color:var(--gold);color:var(--gold);background:var(--gold-dim2);}
 
+/* MP3 BITRATE ROW — hanya tampil saat MP3 dipilih */
+.mp3-options{display:none;margin-top:-8px;margin-bottom:20px;padding:12px 14px;background:var(--gold-dim3);border:1px solid var(--border2);border-radius:var(--radius3);}
+.mp3-options.show{display:block;}
+.mp3-options .form-label{margin-bottom:6px;}
+
 /* ENHANCEMENT */
 .enhancement-panel{background:var(--card);border:1px solid var(--border2);border-radius:var(--radius);padding:28px;margin-top:24px;}
 .toggle-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border2);}
@@ -215,9 +222,6 @@ h1,h2,h3,h4,h5{font-family:'Syne',sans-serif;}
 .pcc-bar{width:2px;border-radius:1px;flex-shrink:0;}
 .pcc-tag{font-size:10px;font-weight:700;color:var(--text3);margin-top:6px;}
 .pcc-tag span{color:var(--gold);}
-
-/* PITCH STATUS */
-.pitch-status{display:inline-block;padding:3px 10px;background:var(--gold-dim);border:1px solid var(--border);border-radius:100px;font-size:10px;color:var(--gold);font-weight:600;margin-left:8px;vertical-align:middle;}
 
 /* CONVERT BUTTON & PROGRESS */
 .convert-btn-wrap{margin-top:20px;}
@@ -331,7 +335,6 @@ h1,h2,h3,h4,h5{font-family:'Syne',sans-serif;}
 .spinner-gold{width:16px;height:16px;border:2px solid rgba(212,175,55,0.2);border-top-color:var(--gold);border-radius:50%;animation:spin 0.7s linear infinite;display:inline-block;}
 @keyframes spin{to{transform:rotate(360deg);}}
 
-/* GLOW */
 .glow-dots{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0;}
 .gd{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(212,175,55,0.12) 0%,transparent 70%);animation:gdDrift var(--t,20s) ease-in-out infinite;animation-delay:var(--td,0s);}
 @keyframes gdDrift{0%,100%{transform:translate(0,0);}33%{transform:translate(var(--mx,20px),var(--my,-15px));}66%{transform:translate(var(--mx2,-10px),var(--my2,25px));}}
@@ -339,7 +342,6 @@ h1,h2,h3,h4,h5{font-family:'Syne',sans-serif;}
 .fade-in{animation:fadeIn 0.4s ease;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:none;}}
 
-/* TOAST */
 .toast{position:fixed;bottom:32px;right:32px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 20px;font-size:13px;color:var(--text);z-index:9998;opacity:0;transform:translateY(16px);transition:all 0.3s ease;pointer-events:none;display:flex;align-items:center;gap:10px;max-width:320px;box-shadow:var(--shadow);}
 .toast.show{opacity:1;transform:none;}
 .toast-icon{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
@@ -383,7 +385,6 @@ h1,h2,h3,h4,h5{font-family:'Syne',sans-serif;}
   <div class="gd" style="width:300px;height:300px;bottom:100px;left:30%;--t:18s;--td:-4s;--mx:20px;--my:-30px;--mx2:-15px;--my2:20px;"></div>
 </div>
 
-<!-- TOAST -->
 <div class="toast" id="globalToast">
   <div class="toast-icon" id="toastIcon"></div>
   <span id="toastMsg"></span>
@@ -472,8 +473,8 @@ h1,h2,h3,h4,h5{font-family:'Syne',sans-serif;}
   <div class="features-row">
     <div class="feature-card">
       <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M2 10h2l2-5 2 10 2-7 2 4 2-2 2 0" stroke="#D4AF37" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div class="feature-title">Real Download</div>
-      <div class="feature-desc">Process dan download langsung di browser — tidak ada server, tidak ada upload ke cloud.</div>
+      <div class="feature-title">Real MP3 Download</div>
+      <div class="feature-desc">Export ke MP3 (lamejs) atau WAV langsung di browser — tidak ada server, tidak ada upload ke cloud.</div>
     </div>
     <div class="feature-card">
       <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="#D4AF37" stroke-width="1.6"/><path d="M7 9.5l2.5 2.5 3.5-4" stroke="#D4AF37" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -596,7 +597,6 @@ h1,h2,h3,h4,h5{font-family:'Syne',sans-serif;}
           </div>
         </div>
         <div class="transform-grid">
-          <!-- VOLUME -->
           <div class="tf-block">
             <div class="tf-label">Volume <span id="volChanged" style="color:var(--gold);display:none;">●</span></div>
             <div class="tf-value" id="volDisplay">100<span class="tf-unit">%</span></div>
@@ -604,7 +604,6 @@ h1,h2,h3,h4,h5{font-family:'Syne',sans-serif;}
             <div class="tf-range-labels"><span>0%</span><span>100%</span><span>200%</span></div>
             <button class="tf-reset" onclick="resetVolume()">↺ Reset</button>
           </div>
-          <!-- SPEED -->
           <div class="tf-block">
             <div class="tf-label">Speed <span id="spdChanged" style="color:var(--gold);display:none;">●</span></div>
             <div class="tf-value" id="spdDisplay">1.00<span class="tf-unit">×</span></div>
@@ -612,7 +611,6 @@ h1,h2,h3,h4,h5{font-family:'Syne',sans-serif;}
             <div class="tf-range-labels"><span>0.25×</span><span>1×</span><span>4×</span></div>
             <button class="tf-reset" onclick="resetSpeed()">↺ Reset</button>
           </div>
-          <!-- PITCH -->
           <div class="tf-block">
             <div class="tf-label">Pitch <span id="pchChanged" style="color:var(--gold);display:none;">●</span></div>
             <div class="tf-value" id="pchDisplay">0<span class="tf-unit">st</span></div>
@@ -707,7 +705,7 @@ h1,h2,h3,h4,h5{font-family:'Syne',sans-serif;}
           </div>
           <div>
             <div class="result-title">Conversion Complete</div>
-            <div class="result-sub">File siap didownload langsung di browser</div>
+            <div class="result-sub" id="resultSub">File siap didownload langsung di browser</div>
           </div>
         </div>
         <div class="mini-player">
@@ -740,11 +738,22 @@ h1,h2,h3,h4,h5{font-family:'Syne',sans-serif;}
         <div class="panel-title">Conversion Settings</div>
         <div class="form-group">
           <label class="form-label">Convert To</label>
-          <select class="form-select" id="outputFormat">
-            <option value="wav" selected>WAV — Waveform Audio</option>
-            <option value="mp3">MP3 — (requires encoder lib)</option>
+          <select class="form-select" id="outputFormat" onchange="onFormatChange()">
+            <option value="wav" selected>WAV — Lossless (Recommended)</option>
+            <option value="mp3">MP3 — Compressed (lamejs)</option>
           </select>
         </div>
+
+        <!-- MP3 bitrate options, visible only when MP3 is selected -->
+        <div class="mp3-options" id="mp3Options">
+          <label class="form-label">MP3 Bitrate</label>
+          <select class="form-select" id="mp3Bitrate">
+            <option value="128">128 kbps — Standard</option>
+            <option value="192">192 kbps — Good Quality</option>
+            <option value="320" selected>320 kbps — Best Quality</option>
+          </select>
+        </div>
+
         <div class="form-group">
           <label class="form-label">Sample Rate</label>
           <select class="form-select" id="sampleRate">
@@ -776,7 +785,7 @@ h1,h2,h3,h4,h5{font-family:'Syne',sans-serif;}
       <div style="background:var(--gold-dim3);border:1px solid var(--border2);border-radius:var(--radius2);padding:16px 20px;margin-top:16px;">
         <div style="font-size:11px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px;">100% Browser-side</div>
         <div style="font-size:12px;color:var(--text2);line-height:1.7;">
-          Semua processing menggunakan <strong style="color:var(--text)">Web Audio API + OfflineAudioContext</strong>. File diproses dan didownload langsung — <span style="color:var(--gold)">tidak ada upload ke server</span>. Output dalam format WAV 16-bit.
+          Semua processing menggunakan <strong style="color:var(--text)">Web Audio API + OfflineAudioContext</strong>. WAV menggunakan encoder bawaan. MP3 menggunakan <span style="color:var(--gold)">lamejs</span> — tidak ada upload ke server.
         </div>
       </div>
     </div>
@@ -863,6 +872,12 @@ function navClick(el,page){
 }
 function toggleMobileMenu(){var m=document.getElementById('mobileMenu');m.style.display=m.style.display==='none'?'block':'none';}
 
+// ==================== FORMAT CHANGE ====================
+function onFormatChange(){
+  var fmt=document.getElementById('outputFormat').value;
+  document.getElementById('mp3Options').classList.toggle('show', fmt==='mp3');
+}
+
 // ==================== TOAST ====================
 function showToast(msg,type){
   var t=document.getElementById('globalToast');
@@ -874,7 +889,7 @@ function showToast(msg,type){
   else icon.innerHTML='<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="#D4AF37" stroke-width="1.5"/><path d="M6 5v3" stroke="#D4AF37" stroke-width="1.5" stroke-linecap="round"/><circle cx="6" cy="3.5" r="0.5" fill="#D4AF37"/></svg>';
   t.classList.add('show');
   clearTimeout(t._timer);
-  t._timer=setTimeout(()=>t.classList.remove('show'),3000);
+  t._timer=setTimeout(()=>t.classList.remove('show'),3500);
 }
 
 // ==================== HERO WAVEFORM ====================
@@ -913,11 +928,9 @@ function toggleEQ(el){el.classList.toggle('on');document.getElementById('eqPanel
 
 // ==================== WEB AUDIO ENGINE ====================
 var audioCtx=null,audioBuffer=null,currentFile=null;
-// Preview playback state
-var previewSource=null,previewGain=null,previewPitch=null;
+var previewSource=null,previewGain=null;
 var isPreviewPlaying=false,previewStartTime=0,previewOffset=0,animFrame=null;
-// Processed buffer for download
-var processedBuffer=null,processedBlob=null;
+var processedBuffer=null,processedBlob=null,processedFormat='wav';
 
 function getAudioCtx(){
   if(!audioCtx||audioCtx.state==='closed') audioCtx=new(window.AudioContext||window.webkitAudioContext)();
@@ -926,16 +939,13 @@ function getAudioCtx(){
 }
 
 function getTransformValues(){
-  var vol=parseInt(document.getElementById('volSlider').value)/100; // 0..2
-  var spd=parseInt(document.getElementById('spdSlider').value)/100; // 0.25..4
-  var pch=parseInt(document.getElementById('pchSlider').value);     // -12..12 semitones
+  var vol=parseInt(document.getElementById('volSlider').value)/100;
+  var spd=parseInt(document.getElementById('spdSlider').value)/100;
+  var pch=parseInt(document.getElementById('pchSlider').value);
   return {vol,spd,pch};
 }
 
-// ===================== PREVIEW PLAYBACK (zero-lag) =====================
-// Strategy: use GainNode for volume (instant), playbackRate for speed (instant),
-// detune (cents) for pitch (native Web Audio, no lag, real pitch shift).
-
+// ===================== PREVIEW PLAYBACK =====================
 function stopPreview(){
   cancelAnimationFrame(animFrame);
   if(previewSource){
@@ -956,35 +966,23 @@ function startPreview(){
   stopPreview();
   var ctx=getAudioCtx();
   var tf=getTransformValues();
-
-  // Build graph: source → gain → destination
   previewGain=ctx.createGain();
   var masterVol=parseInt(document.getElementById('ppVolSlider').value)/100;
   previewGain.gain.value=tf.vol*masterVol;
   previewGain.connect(ctx.destination);
-
   previewSource=ctx.createBufferSource();
   previewSource.buffer=audioBuffer;
-  // Speed via playbackRate
   previewSource.playbackRate.value=tf.spd;
-  // Pitch via detune: 100 cents = 1 semitone
   previewSource.detune.value=tf.pch*100;
   previewSource.connect(previewGain);
-
   var dur=audioBuffer.duration;
   if(previewOffset>=dur) previewOffset=0;
   previewSource.start(0, previewOffset);
   previewStartTime=ctx.currentTime - previewOffset/tf.spd;
   isPreviewPlaying=true;
   setPlayBtnIcon('ppPlayBtn',true);
-
   previewSource.onended=()=>{
-    if(isPreviewPlaying){
-      isPreviewPlaying=false;
-      previewOffset=0;
-      updatePlayhead(0);
-      setPlayBtnIcon('ppPlayBtn',false);
-    }
+    if(isPreviewPlaying){isPreviewPlaying=false;previewOffset=0;updatePlayhead(0);setPlayBtnIcon('ppPlayBtn',false);}
     cancelAnimationFrame(animFrame);
   };
   animatePlayhead();
@@ -1019,32 +1017,25 @@ function setPlayBtnIcon(id,playing){
     '<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 2l9 5-9 5V2z" fill="#000"/></svg>';
 }
 
-// NO-LAG slider: update live nodes without restarting
 var transformDebounce=null;
 function onTransformChange(){
   var tf=getTransformValues();
   var vol=tf.vol, spd=tf.spd, pch=tf.pch;
-
-  // Update displays
   document.getElementById('volDisplay').innerHTML=(Math.round(vol*100))+'<span class="tf-unit">%</span>';
   document.getElementById('spdDisplay').innerHTML=spd.toFixed(2)+'<span class="tf-unit">×</span>';
   document.getElementById('pchDisplay').innerHTML=(pch>0?'+':'')+pch+'<span class="tf-unit">st</span>';
   document.getElementById('volChanged').style.display=vol!==1?'inline':'none';
   document.getElementById('spdChanged').style.display=spd!==1?'inline':'none';
   document.getElementById('pchChanged').style.display=pch!==0?'inline':'none';
-
   var tsVol=document.getElementById('tsVol'),tsSpd=document.getElementById('tsSpd'),tsPch=document.getElementById('tsPch');
   tsVol.textContent=Math.round(vol*100)+'%'; tsVol.className='ts-val'+(vol!==1?' changed':'');
   tsSpd.textContent=spd.toFixed(2)+'×'; tsSpd.className='ts-val'+(spd!==1?' changed':'');
   tsPch.textContent=(pch>=0?'+':'')+pch+' semitones'; tsPch.className='ts-val'+(pch!==0?' changed':'');
-
   var flags=[];
   if(vol!==1) flags.push('volume='+vol.toFixed(2));
   if(spd!==1) flags.push('atempo='+spd.toFixed(2));
   if(pch!==0) flags.push('detune='+(pch*100)+' cents ('+pch+' semitones)');
   document.getElementById('tsFFmpeg').innerHTML='Web Audio: <span>'+(flags.length?flags.join(' | '):'(no changes)')+'</span>';
-
-  // Live update playing nodes — ZERO LAG, no restart needed
   if(previewGain && isPreviewPlaying){
     var masterVol=parseInt(document.getElementById('ppVolSlider').value)/100;
     previewGain.gain.setTargetAtTime(vol*masterVol, getAudioCtx().currentTime, 0.01);
@@ -1053,14 +1044,8 @@ function onTransformChange(){
     previewSource.playbackRate.setTargetAtTime(spd, getAudioCtx().currentTime, 0.01);
     previewSource.detune.setTargetAtTime(pch*100, getAudioCtx().currentTime, 0.01);
   }
-
-  // If not playing, just update waveform visual with debounce
   clearTimeout(transformDebounce);
-  transformDebounce=setTimeout(()=>{
-    if(audioBuffer) drawWaveformCanvas(audioBuffer);
-    drawMiniCompareWaves();
-  },80);
-
+  transformDebounce=setTimeout(()=>{if(audioBuffer)drawWaveformCanvas(audioBuffer);drawMiniCompareWaves();},80);
   clearTransformPreset();
 }
 
@@ -1077,12 +1062,7 @@ function seekAudio(e){
   var pct=Math.max(0,Math.min(1,(e.clientX-rect.left)/rect.width));
   if(!audioBuffer)return;
   var wasPlaying=isPreviewPlaying;
-  if(isPreviewPlaying){
-    // stop without updating offset (we'll set manually)
-    cancelAnimationFrame(animFrame);
-    if(previewSource){try{previewSource.stop();}catch(e){}previewSource=null;}
-    isPreviewPlaying=false;
-  }
+  if(isPreviewPlaying){cancelAnimationFrame(animFrame);if(previewSource){try{previewSource.stop();}catch(e){}previewSource=null;}isPreviewPlaying=false;}
   previewOffset=pct*audioBuffer.duration;
   updatePlayhead(pct);
   updatePreviewTimeDisplay(previewOffset,audioBuffer.duration);
@@ -1106,7 +1086,6 @@ function processFile(file){
   document.getElementById('resultPanel').classList.remove('show');
   document.getElementById('progressPanel').classList.remove('show');
   stopPreview();previewOffset=0;audioBuffer=null;
-
   var reader=new FileReader();
   reader.onload=e=>{
     getAudioCtx().decodeAudioData(e.target.result, buf=>{
@@ -1127,9 +1106,7 @@ function setupPreviewPlayer(file,buf){
   document.getElementById('ppDuration').textContent=fmtDur(buf.duration);
   document.getElementById('ppFormat').textContent=file.name.split('.').pop().toUpperCase();
   document.getElementById('ppSampleRate').textContent=buf.sampleRate+' Hz';
-  drawWaveformCanvas(buf);
-  drawMiniCompareWaves();
-  updatePreviewTimeDisplay(0,buf.duration);
+  drawWaveformCanvas(buf);drawMiniCompareWaves();updatePreviewTimeDisplay(0,buf.duration);
 }
 
 function switchPreviewTab(tab){
@@ -1186,14 +1163,9 @@ function drawMiniWave(id,data,vol,shifted){
 
 // ==================== TRANSFORM ====================
 var TRANSFORM_PRESETS={
-  normal:{vol:100,spd:100,pch:0},
-  boost:{vol:180,spd:100,pch:0},
-  deep:{vol:120,spd:75,pch:-4},
-  radio:{vol:130,spd:110,pch:2},
-  chipmunk:{vol:100,spd:180,pch:8},
-  slow:{vol:110,spd:60,pch:-3},
-  cinema:{vol:160,spd:90,pch:-1},
-  concert:{vol:100,spd:100,pch:5}
+  normal:{vol:100,spd:100,pch:0},boost:{vol:180,spd:100,pch:0},deep:{vol:120,spd:75,pch:-4},
+  radio:{vol:130,spd:110,pch:2},chipmunk:{vol:100,spd:180,pch:8},slow:{vol:110,spd:60,pch:-3},
+  cinema:{vol:160,spd:90,pch:-1},concert:{vol:100,spd:100,pch:5}
 };
 function resetVolume(){document.getElementById('volSlider').value=100;onTransformChange();}
 function resetSpeed(){document.getElementById('spdSlider').value=100;onTransformChange();}
@@ -1204,16 +1176,11 @@ function applyTransformPreset(el){
   document.getElementById('volSlider').value=p.vol;
   document.getElementById('spdSlider').value=p.spd;
   document.getElementById('pchSlider').value=p.pch;
-  clearTransformPreset();el.classList.add('active');
-  onTransformChange();
+  clearTransformPreset();el.classList.add('active');onTransformChange();
 }
 
 // ==================== CONVERSION ENGINE ====================
-// Uses OfflineAudioContext to render audio with all transforms applied,
-// then encodes to WAV and triggers real browser download.
-
-var convStartTime=0;
-var convProgInterval=null;
+var convStartTime=0,convProgInterval=null;
 
 function startConversion(){
   if(!audioBuffer){showToast('Upload file audio terlebih dahulu','info');return;}
@@ -1224,14 +1191,17 @@ function startConversion(){
   buildWaveformLoading();
   processedBlob=null;
 
+  var outputFmt=document.getElementById('outputFormat').value; // 'wav' atau 'mp3'
+  var stages=outputFmt==='mp3'
+    ? ['Initializing engine...','Applying volume...','Applying pitch & speed...','Rendering offline...','Encoding MP3...']
+    : ['Initializing engine...','Applying volume...','Applying pitch & speed...','Rendering offline...','Encoding WAV...'];
+
   convStartTime=Date.now();
-  var stages=['Initializing engine...','Applying volume...','Applying pitch & speed...','Rendering offline...','Encoding WAV...'];
   var pct=0,si=0;
   document.getElementById('progressFill').style.width='0%';
   document.getElementById('progressPct').textContent='0%';
-  document.getElementById('progEngine').textContent='OfflineAudioContext';
+  document.getElementById('progEngine').textContent=outputFmt==='mp3'?'OfflineAudioContext + lamejs':'OfflineAudioContext';
 
-  // Animate progress while processing
   convProgInterval=setInterval(()=>{
     pct=Math.min(pct+Math.random()*3+1,88);
     si=Math.min(Math.floor(pct/20),4);
@@ -1242,79 +1212,54 @@ function startConversion(){
     document.getElementById('progStage').textContent=(si+1)+' / 5';
   },200);
 
-  // Run actual processing asynchronously
-  setTimeout(()=>{renderAndEncode();},100);
+  setTimeout(()=>renderAndEncode(outputFmt),100);
 }
 
-async function renderAndEncode(){
+async function renderAndEncode(outputFmt){
   try{
     var tf=getTransformValues();
     var targetSampleRate=parseInt(document.getElementById('sampleRate').value)||44100;
     var numChannels=parseInt(document.getElementById('channel').value)||2;
-
-    // Clamp speed for OfflineAudioContext
     var spd=Math.max(0.0625, Math.min(4, tf.spd));
-    // Output duration accounts for speed change
     var outDuration=audioBuffer.duration/spd;
     var outLength=Math.ceil(outDuration*targetSampleRate);
 
-    // Create offline context
     var offCtx=new OfflineAudioContext(numChannels, outLength, targetSampleRate);
-
-    // Build offline graph: source → gain → [optional BiquadFilter] → dest
     var gainNode=offCtx.createGain();
-    // Volume boost enhancement toggle
     var volBoost=document.getElementById('toggleVolumeBoost').classList.contains('on');
     var bassBoost=document.getElementById('toggleBassBoost').classList.contains('on');
     var normalize=document.getElementById('toggleNormalize').classList.contains('on');
-
     gainNode.gain.value=tf.vol*(volBoost?1.4:1.0);
     gainNode.connect(offCtx.destination);
-
     var lastNode=gainNode;
 
-    // Bass boost via BiquadFilter
     if(bassBoost){
       var bassFilter=offCtx.createBiquadFilter();
-      bassFilter.type='lowshelf';
-      bassFilter.frequency.value=200;
-      bassFilter.gain.value=8;
-      bassFilter.connect(gainNode);
-      lastNode=bassFilter;
+      bassFilter.type='lowshelf';bassFilter.frequency.value=200;bassFilter.gain.value=8;
+      bassFilter.connect(gainNode);lastNode=bassFilter;
     }
 
-    // EQ filters
     var eqOn=document.getElementById('eqToggle').classList.contains('on');
     if(eqOn){
       var eqSliders=document.querySelectorAll('.eq-slider');
       var eqFreqs=[60,170,310,600,1000,3000,6000,12000,14000,16000];
-      var prevEqNode=lastNode;
       eqSliders.forEach((sl,i)=>{
         var gain=parseInt(sl.value);
         if(gain!==0){
           var f=offCtx.createBiquadFilter();
           f.type=(i===0)?'lowshelf':(i===eqSliders.length-1)?'highshelf':'peaking';
-          f.frequency.value=eqFreqs[i]||1000;
-          f.gain.value=gain;
-          f.Q.value=1;
-          f.connect(prevEqNode===gainNode?offCtx.destination:prevEqNode);
-          // Rebuild chain properly
-          prevEqNode=f;
+          f.frequency.value=eqFreqs[i]||1000;f.gain.value=gain;f.Q.value=1;
+          f.connect(lastNode===gainNode?offCtx.destination:lastNode);lastNode=f;
         }
       });
     }
 
     var source=offCtx.createBufferSource();
-    source.buffer=audioBuffer;
-    source.playbackRate.value=spd;
-    // Pitch via detune — works in OfflineAudioContext too
-    source.detune.value=tf.pch*100;
-    source.connect(lastNode);
-    source.start(0);
+    source.buffer=audioBuffer;source.playbackRate.value=spd;source.detune.value=tf.pch*100;
+    source.connect(lastNode);source.start(0);
 
     var rendered=await offCtx.startRendering();
 
-    // Normalize pass
     if(normalize){
       var peak=0;
       for(var ch=0;ch<rendered.numberOfChannels;ch++){
@@ -1332,15 +1277,23 @@ async function renderAndEncode(){
 
     processedBuffer=rendered;
 
-    // Encode to WAV
-    var wavBlob=audioBufferToWavBlob(rendered);
-    processedBlob=wavBlob;
+    // ===================== ENCODE =====================
+    var blob;
+    if(outputFmt==='mp3'){
+      blob=encodeMP3(rendered);
+      processedFormat='mp3';
+    } else {
+      blob=audioBufferToWavBlob(rendered);
+      processedFormat='wav';
+    }
+    processedBlob=blob;
 
     clearInterval(convProgInterval);
     document.getElementById('progressFill').style.width='100%';
     document.getElementById('progressPct').textContent='100%';
     document.getElementById('progressStatusText').textContent='Done!';
-    setTimeout(()=>showResult(rendered,wavBlob),500);
+    setTimeout(()=>showResult(rendered,blob,outputFmt),500);
+
   } catch(err){
     clearInterval(convProgInterval);
     document.getElementById('convertBtn').disabled=false;
@@ -1350,54 +1303,49 @@ async function renderAndEncode(){
   }
 }
 
-function showResult(rendered,blob){
-  document.getElementById('progressPanel').classList.remove('show');
-  document.getElementById('resultPanel').classList.add('show');
-  document.getElementById('convertBtn').disabled=false;
-  document.getElementById('resFormat').textContent='WAV';
-  document.getElementById('resSize').textContent=fmtBytes(blob.size);
-  document.getElementById('resDuration').textContent=fmtDur(rendered.duration);
-  document.getElementById('resSampleRate').textContent=rendered.sampleRate+' Hz';
-  buildMiniWaveform();
-  showToast('Konversi selesai! Siap download.','success');
+// ==================== MP3 ENCODER (lamejs) ====================
+function encodeMP3(buffer){
+  if(typeof lamejs==='undefined'){
+    throw new Error('lamejs belum termuat. Pastikan koneksi internet aktif.');
+  }
+
+  var numChannels=buffer.numberOfChannels;
+  var sampleRate=buffer.sampleRate;
+  var bitrate=parseInt(document.getElementById('mp3Bitrate').value)||320;
+  var kbps=bitrate; // 128 | 192 | 320
+
+  var mp3enc=new lamejs.Mp3Encoder(numChannels, sampleRate, kbps);
+  var mp3Data=[];
+
+  // Get PCM data as Int16
+  var BLOCK=1152; // lamejs needs chunks of 1152
+  var left=floatTo16BitPCM(buffer.getChannelData(0));
+  var right=numChannels>1 ? floatTo16BitPCM(buffer.getChannelData(1)) : left;
+
+  for(var i=0;i<left.length;i+=BLOCK){
+    var leftChunk=left.subarray(i, i+BLOCK);
+    var rightChunk=right.subarray(i, i+BLOCK);
+    var encoded=numChannels>1 ? mp3enc.encodeBuffer(leftChunk, rightChunk) : mp3enc.encodeBuffer(leftChunk);
+    if(encoded.length>0) mp3Data.push(new Int8Array(encoded));
+  }
+
+  // Flush remaining
+  var flushed=mp3enc.flush();
+  if(flushed.length>0) mp3Data.push(new Int8Array(flushed));
+
+  return new Blob(mp3Data, {type:'audio/mpeg'});
 }
 
-// ==================== REAL DOWNLOAD ====================
-function doRealDownload(){
-  if(!processedBlob){showToast('Proses konversi dulu!','info');return;}
-  var btn=document.getElementById('downloadBtn');
-  btn.disabled=true;
-  btn.innerHTML='<div class="spinner"></div> Preparing...';
-
-  // Create object URL and trigger download
-  var url=URL.createObjectURL(processedBlob);
-  var a=document.createElement('a');
-  var baseName=(currentFile?currentFile.name.replace(/\.[^/.]+$/,''):'audio_output');
-  var tf=getTransformValues();
-  var suffix='';
-  if(tf.pch!==0) suffix+='_pitch'+(tf.pch>0?'+':'')+tf.pch;
-  if(tf.spd!==1) suffix+='_speed'+tf.spd.toFixed(2).replace('.','p');
-  if(tf.vol!==1) suffix+='_vol'+Math.round(tf.vol*100);
-  a.href=url;
-  a.download=baseName+suffix+'.wav';
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-
-  setTimeout(()=>{
-    URL.revokeObjectURL(url);
-    btn.disabled=false;
-    btn.innerHTML='<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v8M5 7l3 3 3-3" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 12h12" stroke="#000" stroke-width="1.8" stroke-linecap="round"/></svg> Download File';
-    showToast('File berhasil didownload!','success');
-    // Update history entry
-    historyData[0].status='success';
-    historyData[0].size=fmtBytes(processedBlob.size);
-    buildHistory();
-  },1500);
+function floatTo16BitPCM(floatData){
+  var out=new Int16Array(floatData.length);
+  for(var i=0;i<floatData.length;i++){
+    var s=Math.max(-1,Math.min(1,floatData[i]));
+    out[i]=s<0 ? s*0x8000 : s*0x7FFF;
+  }
+  return out;
 }
 
 // ==================== WAV ENCODER ====================
-// Pure JS WAV encoder — no library needed
 function audioBufferToWavBlob(buffer){
   var numChannels=buffer.numberOfChannels;
   var sampleRate=buffer.sampleRate;
@@ -1408,43 +1356,87 @@ function audioBufferToWavBlob(buffer){
   var dataSize=length*numChannels*(bitsPerSample/8);
   var headerSize=44;
   var totalSize=headerSize+dataSize;
-
   var buf=new ArrayBuffer(totalSize);
   var view=new DataView(buf);
   var offset=0;
-
   function writeStr(s){for(var i=0;i<s.length;i++){view.setUint8(offset++,s.charCodeAt(i));}}
   function writeU32(v){view.setUint32(offset,v,true);offset+=4;}
   function writeU16(v){view.setUint16(offset,v,true);offset+=2;}
-
-  writeStr('RIFF');
-  writeU32(totalSize-8);
-  writeStr('WAVE');
-  writeStr('fmt ');
-  writeU32(16);       // chunk size
-  writeU16(1);        // PCM
-  writeU16(numChannels);
-  writeU32(sampleRate);
-  writeU32(byteRate);
-  writeU16(blockAlign);
-  writeU16(bitsPerSample);
-  writeStr('data');
-  writeU32(dataSize);
-
-  // Interleave channels + convert float32 → int16
+  writeStr('RIFF');writeU32(totalSize-8);writeStr('WAVE');writeStr('fmt ');writeU32(16);
+  writeU16(1);writeU16(numChannels);writeU32(sampleRate);writeU32(byteRate);writeU16(blockAlign);writeU16(bitsPerSample);
+  writeStr('data');writeU32(dataSize);
   var channels=[];
   for(var ch=0;ch<numChannels;ch++) channels.push(buffer.getChannelData(ch));
-
   for(var i=0;i<length;i++){
     for(var ch=0;ch<numChannels;ch++){
       var s=Math.max(-1,Math.min(1,channels[ch][i]));
       var intVal=s<0?s*0x8000:s*0x7FFF;
-      view.setInt16(offset,intVal,true);
-      offset+=2;
+      view.setInt16(offset,intVal,true);offset+=2;
     }
   }
-
   return new Blob([buf],{type:'audio/wav'});
+}
+
+// ==================== SHOW RESULT ====================
+function showResult(rendered,blob,fmt){
+  document.getElementById('progressPanel').classList.remove('show');
+  document.getElementById('resultPanel').classList.add('show');
+  document.getElementById('convertBtn').disabled=false;
+
+  var fmtLabel=fmt==='mp3'?'MP3':'WAV';
+  var bitrate=fmt==='mp3'?' · '+document.getElementById('mp3Bitrate').value+' kbps':'';
+  document.getElementById('resFormat').textContent=fmtLabel+bitrate;
+  document.getElementById('resSize').textContent=fmtBytes(blob.size);
+  document.getElementById('resDuration').textContent=fmtDur(rendered.duration);
+  document.getElementById('resSampleRate').textContent=rendered.sampleRate+' Hz';
+  document.getElementById('resultSub').textContent=
+    fmt==='mp3'?'File MP3 siap didownload langsung di browser':'File WAV siap didownload langsung di browser';
+
+  // Update download button label
+  document.getElementById('downloadBtn').innerHTML=
+    '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v8M5 7l3 3 3-3" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 12h12" stroke="#000" stroke-width="1.8" stroke-linecap="round"/></svg> Download '+fmtLabel;
+
+  buildMiniWaveform();
+  showToast('Konversi selesai! File '+fmtLabel+' siap download.','success');
+}
+
+// ==================== REAL DOWNLOAD ====================
+function doRealDownload(){
+  if(!processedBlob){showToast('Proses konversi dulu!','info');return;}
+  var btn=document.getElementById('downloadBtn');
+  btn.disabled=true;
+  btn.innerHTML='<div class="spinner"></div> Preparing...';
+
+  var url=URL.createObjectURL(processedBlob);
+  var a=document.createElement('a');
+  var baseName=(currentFile?currentFile.name.replace(/\.[^/.]+$/,''):'audio_output');
+  var tf=getTransformValues();
+  var suffix='';
+  if(tf.pch!==0) suffix+='_pitch'+(tf.pch>0?'+':'')+tf.pch;
+  if(tf.spd!==1) suffix+='_speed'+tf.spd.toFixed(2).replace('.','p');
+  if(tf.vol!==1) suffix+='_vol'+Math.round(tf.vol*100);
+
+  // *** FIX UTAMA: ekstensi dan MIME type sesuai format yang dipilih ***
+  var ext=processedFormat; // 'mp3' atau 'wav'
+  a.href=url;
+  a.download=baseName+suffix+'.'+ext;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+
+  setTimeout(()=>{
+    URL.revokeObjectURL(url);
+    btn.disabled=false;
+    var fmtLabel=processedFormat.toUpperCase();
+    btn.innerHTML='<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v8M5 7l3 3 3-3" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 12h12" stroke="#000" stroke-width="1.8" stroke-linecap="round"/></svg> Download '+fmtLabel;
+    showToast('File '+fmtLabel+' berhasil didownload!','success');
+    if(historyData.length&&historyData[0].status==='processing'){
+      historyData[0].status='success';
+      historyData[0].fmt=fmtLabel;
+      historyData[0].size=fmtBytes(processedBlob.size);
+      buildHistory();
+    }
+  },1500);
 }
 
 // ==================== MISC ====================
@@ -1465,7 +1457,7 @@ function toggleMiniPlay(btn){
   btn.innerHTML=playing?'<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 2l9 5-9 5V2z" fill="#000"/></svg>':'<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="1.5" width="3.5" height="11" rx="1" fill="#000"/><rect x="8.5" y="1.5" width="3.5" height="11" rx="1" fill="#000"/></svg>';
 }
 function resetConverter(){
-  currentFile=null;stopPreview();previewOffset=0;audioBuffer=null;processedBlob=null;processedBuffer=null;
+  currentFile=null;stopPreview();previewOffset=0;audioBuffer=null;processedBlob=null;processedBuffer=null;processedFormat='wav';
   document.getElementById('fileInfoCard').classList.remove('show');
   document.getElementById('progressPanel').classList.remove('show');
   document.getElementById('resultPanel').classList.remove('show');
@@ -1499,7 +1491,7 @@ function buildHistory(){
 buildHistory();
 function addToHistory(name,ext){
   var d=new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
-  historyData.unshift({name:name,date:d,fmt:'WAV',size:'Processing...',status:'processing'});
+  historyData.unshift({name:name,date:d,fmt:'—',size:'Processing...',status:'processing'});
   buildHistory();
 }
 
@@ -1508,16 +1500,15 @@ function addToHistory(name,ext){
   var acts=[
     {name:'podcast_episode_42.mp3',meta:'MP3 → WAV · 44100Hz',size:'4.2 MB'},
     {name:'studio_mix_final.wav',meta:'WAV → WAV · Lossless',size:'82 MB'},
-    {name:'background_music.ogg',meta:'OGG → WAV · 48kHz',size:'3.8 MB'},
-    {name:'interview_raw.m4a',meta:'M4A → WAV · 44100Hz',size:'18.7 MB'},
+    {name:'background_music.ogg',meta:'OGG → MP3 · 320kbps',size:'3.8 MB'},
+    {name:'interview_raw.m4a',meta:'M4A → MP3 · 192kbps',size:'18.7 MB'},
     {name:'voice_over_final.aac',meta:'AAC → WAV · Stereo',size:'5.1 MB'}
   ];
   document.getElementById('activityList').innerHTML=acts.map(a=>'<div class="activity-item"><div class="act-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8h2l2-4 2 8 2-5 2 3 2-2" stroke="#D4AF37" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="act-name">'+a.name+'</div><div class="act-meta">'+a.meta+'</div></div><div class="act-size">'+a.size+'</div></div>').join('');
-  var fmts=[{name:'WAV',pct:68},{name:'MP3',pct:15},{name:'FLAC',pct:8},{name:'AAC',pct:5},{name:'OGG',pct:4}];
+  var fmts=[{name:'WAV',pct:58},{name:'MP3',pct:28},{name:'FLAC',pct:8},{name:'AAC',pct:4},{name:'OGG',pct:2}];
   document.getElementById('formatDist').innerHTML=fmts.map(f=>'<div class="format-row"><div class="format-row-name">'+f.name+'</div><div class="format-row-bar"><div class="format-row-fill" style="width:'+f.pct+'%"></div></div><div class="format-row-pct">'+f.pct+'%</div></div>').join('');
 })();
 
-// Init transform display
 onTransformChange();
 </script>
 </body>
