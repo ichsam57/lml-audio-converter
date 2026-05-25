@@ -1,0 +1,1524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LML Audio Converter — Premium Audio Conversion Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black:#080808;--black2:#0D0D0D;--black3:#111111;--card:#141414;--card2:#181818;
+  --gold:#D4AF37;--gold2:#FFD95E;--gold3:#B8962E;
+  --gold-dim:rgba(212,175,55,0.15);--gold-dim2:rgba(212,175,55,0.08);--gold-dim3:rgba(212,175,55,0.04);
+  --glass:rgba(255,255,255,0.03);--glass2:rgba(255,255,255,0.06);
+  --border:rgba(212,175,55,0.2);--border2:rgba(212,175,55,0.1);
+  --text:#E8E8E0;--text2:#999990;--text3:#555550;
+  --radius:16px;--radius2:12px;--radius3:8px;
+  --shadow:0 8px 40px rgba(0,0,0,0.6);--shadow-gold:0 0 30px rgba(212,175,55,0.15);
+  --transition:0.3s cubic-bezier(0.4,0,0.2,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--text);min-height:100vh;overflow-x:hidden;}
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:var(--black2);}
+::-webkit-scrollbar-thumb{background:var(--gold3);border-radius:3px;}
+::-webkit-scrollbar-thumb:hover{background:var(--gold);}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:0.4;}
+h1,h2,h3,h4,h5{font-family:'Syne',sans-serif;}
+.gold-text{color:var(--gold);}
+
+/* NAVBAR */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;height:64px;background:rgba(8,8,8,0.85);backdrop-filter:blur(24px) saturate(1.5);-webkit-backdrop-filter:blur(24px) saturate(1.5);border-bottom:1px solid var(--border2);display:flex;align-items:center;justify-content:space-between;padding:0 32px;}
+.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;cursor:pointer;}
+.nav-logo-icon{width:38px;height:38px;background:linear-gradient(135deg,var(--gold3),var(--gold));border-radius:10px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 16px rgba(212,175,55,0.4);}
+.nav-logo-icon svg{width:20px;height:20px;}
+.nav-logo-text{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--text);letter-spacing:0.02em;}
+.nav-logo-text span{color:var(--gold);}
+.nav-links{display:flex;align-items:center;gap:4px;list-style:none;}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:13.5px;font-weight:500;padding:7px 16px;border-radius:8px;transition:var(--transition);letter-spacing:0.01em;}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);background:var(--gold-dim2);}
+.nav-right{display:flex;align-items:center;gap:12px;}
+.btn-nav-cta{padding:8px 20px;background:linear-gradient(135deg,var(--gold3),var(--gold));color:#000;border:none;border-radius:8px;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:var(--transition);letter-spacing:0.02em;}
+.btn-nav-cta:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(212,175,55,0.4);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;}
+.hamburger span{width:22px;height:2px;background:var(--gold);border-radius:2px;transition:var(--transition);}
+
+/* PAGES */
+.page{display:none;padding-top:64px;min-height:100vh;}
+.page.active{display:block;}
+
+/* HOME */
+#page-home{background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(212,175,55,0.06) 0%,transparent 70%);}
+.hero{min-height:calc(100vh - 64px);display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:60px 60px 40px;gap:60px;max-width:1400px;margin:0 auto;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border:1px solid var(--border);border-radius:100px;font-size:12px;color:var(--gold);font-weight:500;margin-bottom:28px;background:var(--gold-dim3);letter-spacing:0.08em;text-transform:uppercase;}
+.badge-dot{width:6px;height:6px;background:var(--gold2);border-radius:50%;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.5;transform:scale(1.3);}}
+.hero-title{font-size:clamp(36px,5vw,64px);font-weight:800;line-height:1.05;letter-spacing:-0.02em;margin-bottom:20px;}
+.hero-title .line2{color:var(--gold);display:block;}
+.hero-sub{font-size:16px;color:var(--text2);line-height:1.7;max-width:500px;margin-bottom:40px;font-weight:300;}
+.hero-buttons{display:flex;gap:14px;flex-wrap:wrap;}
+.btn-primary{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;background:linear-gradient(135deg,var(--gold3),var(--gold));color:#000;border:none;border-radius:var(--radius3);font-family:'Syne',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:var(--transition);letter-spacing:0.02em;}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(212,175,55,0.35);}
+.btn-secondary{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;background:transparent;color:var(--gold);border:1px solid var(--border);border-radius:var(--radius3);font-family:'Syne',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:var(--transition);letter-spacing:0.02em;}
+.btn-secondary:hover{background:var(--gold-dim2);border-color:var(--gold);transform:translateY(-2px);}
+.hero-stats{display:flex;gap:40px;margin-top:48px;padding-top:36px;border-top:1px solid var(--border2);}
+.stat-num{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:var(--gold);}
+.stat-label{font-size:12px;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin-top:2px;}
+
+/* HERO VISUAL */
+.hero-visual{display:flex;align-items:center;justify-content:center;position:relative;}
+.visualizer-card{width:100%;max-width:520px;background:var(--card);border:1px solid var(--border);border-radius:24px;padding:32px;position:relative;overflow:hidden;box-shadow:var(--shadow),var(--shadow-gold);}
+.visualizer-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.vis-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;}
+.vis-title{font-size:13px;color:var(--text2);font-weight:500;text-transform:uppercase;letter-spacing:0.1em;}
+.vis-badge{padding:4px 10px;background:var(--gold-dim);border:1px solid var(--border);border-radius:100px;font-size:11px;color:var(--gold);font-weight:600;}
+.waveform-container{height:120px;display:flex;align-items:center;justify-content:center;gap:3px;margin-bottom:24px;overflow:hidden;}
+.waveform-bar{width:4px;background:linear-gradient(to top,var(--gold3),var(--gold2));border-radius:2px;animation:wave var(--dur,1.2s) ease-in-out infinite;animation-delay:var(--delay,0s);height:var(--h,40%);}
+@keyframes wave{0%,100%{transform:scaleY(1);opacity:0.8;}50%{transform:scaleY(var(--scale,2.5));opacity:1;}}
+.vis-controls{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
+.vis-play-btn{width:44px;height:44px;background:linear-gradient(135deg,var(--gold3),var(--gold));border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;box-shadow:0 4px 20px rgba(212,175,55,0.4);transition:var(--transition);}
+.vis-play-btn:hover{transform:scale(1.08);}
+.vis-play-btn svg{margin-left:2px;}
+.vis-progress{flex:1;height:3px;background:var(--black3);border-radius:2px;overflow:hidden;}
+.vis-progress-fill{height:100%;width:40%;background:linear-gradient(90deg,var(--gold3),var(--gold2));border-radius:2px;animation:progAnim 4s ease-in-out infinite alternate;}
+@keyframes progAnim{from{width:10%;}to{width:90%;}}
+.vis-time{font-size:12px;color:var(--text2);font-variant-numeric:tabular-nums;}
+.vis-formats{display:flex;gap:8px;flex-wrap:wrap;}
+.format-chip{padding:4px 12px;border:1px solid var(--border2);border-radius:100px;font-size:11px;color:var(--text2);font-weight:600;letter-spacing:0.05em;transition:var(--transition);}
+.format-chip.active{border-color:var(--gold);color:var(--gold);background:var(--gold-dim2);}
+
+/* FEATURES */
+.features-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:1400px;margin:0 auto;padding:0 60px 80px;}
+.feature-card{background:var(--card);border:1px solid var(--border2);border-radius:var(--radius);padding:24px;transition:var(--transition);}
+.feature-card:hover{border-color:var(--border);transform:translateY(-4px);box-shadow:var(--shadow-gold);}
+.feature-icon{width:44px;height:44px;background:var(--gold-dim);border:1px solid var(--border);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
+.feature-title{font-size:15px;font-weight:700;margin-bottom:6px;}
+.feature-desc{font-size:13px;color:var(--text2);line-height:1.6;}
+
+/* CONVERTER */
+#page-converter{max-width:1200px;margin:0 auto;padding:48px 32px 80px;}
+.section-header{margin-bottom:32px;}
+.section-label{font-size:11px;color:var(--gold);font-weight:600;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:8px;}
+.section-title{font-size:28px;font-weight:800;letter-spacing:-0.01em;}
+.section-sub{font-size:14px;color:var(--text2);margin-top:6px;}
+.converter-grid{display:grid;grid-template-columns:1fr 400px;gap:24px;}
+
+/* UPLOAD */
+.upload-zone{background:var(--card);border:2px dashed var(--border);border-radius:var(--radius);padding:60px 40px;text-align:center;cursor:pointer;transition:var(--transition);position:relative;overflow:hidden;}
+.upload-zone.dragover,.upload-zone:hover{border-color:var(--gold);background:var(--card2);box-shadow:0 0 40px rgba(212,175,55,0.1);}
+.upload-zone::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(212,175,55,0.05) 0%,transparent 70%);pointer-events:none;}
+.upload-icon-wrap{width:80px;height:80px;background:var(--gold-dim);border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;animation:floatAnim 3s ease-in-out infinite;}
+@keyframes floatAnim{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+.upload-title{font-size:18px;font-weight:700;margin-bottom:8px;}
+.upload-sub{font-size:13px;color:var(--text2);margin-bottom:24px;}
+.upload-formats{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;}
+.fmt-tag{padding:3px 10px;background:var(--gold-dim2);border:1px solid var(--border2);border-radius:5px;font-size:11px;color:var(--gold);font-weight:700;letter-spacing:0.05em;}
+
+/* FILE INFO */
+.file-info-card{background:var(--card2);border:1px solid var(--border);border-radius:var(--radius);padding:24px;display:none;}
+.file-info-card.show{display:block;}
+.file-info-header{display:flex;align-items:center;gap:16px;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border2);}
+.file-icon-big{width:56px;height:56px;background:var(--gold-dim);border:1px solid var(--border);border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.file-name{font-size:15px;font-weight:600;margin-bottom:4px;word-break:break-all;}
+.file-meta-row{display:flex;gap:16px;}
+.file-meta-item{font-size:12px;color:var(--text2);}
+.file-meta-item span{color:var(--text);font-weight:500;}
+
+/* SETTINGS PANEL */
+.settings-panel{background:var(--card);border:1px solid var(--border2);border-radius:var(--radius);padding:28px;height:fit-content;}
+.panel-title{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--gold);margin-bottom:24px;display:flex;align-items:center;gap:8px;}
+.panel-title::after{content:'';flex:1;height:1px;background:var(--border2);}
+.form-group{margin-bottom:20px;}
+.form-label{font-size:12px;color:var(--text2);font-weight:600;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:8px;display:block;}
+.form-select{width:100%;padding:10px 14px;background:var(--black3);border:1px solid var(--border2);border-radius:var(--radius3);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23D4AF37' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;cursor:pointer;transition:var(--transition);}
+.form-select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 2px var(--gold-dim2);}
+.preset-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.preset-btn{padding:10px 8px;background:var(--black3);border:1px solid var(--border2);border-radius:var(--radius3);color:var(--text2);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:var(--transition);text-align:center;}
+.preset-btn:hover,.preset-btn.active{border-color:var(--gold);color:var(--gold);background:var(--gold-dim2);}
+
+/* ENHANCEMENT */
+.enhancement-panel{background:var(--card);border:1px solid var(--border2);border-radius:var(--radius);padding:28px;margin-top:24px;}
+.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border2);}
+.toggle-row:last-child{border-bottom:none;}
+.toggle-label{font-size:14px;font-weight:500;display:flex;align-items:center;gap:10px;}
+.toggle-label-sub{font-size:11px;color:var(--text3);font-weight:400;}
+.toggle-switch{width:42px;height:22px;background:var(--black3);border:1px solid var(--border2);border-radius:11px;position:relative;cursor:pointer;transition:var(--transition);flex-shrink:0;}
+.toggle-switch.on{background:var(--gold-dim);border-color:var(--gold);}
+.toggle-switch::after{content:'';position:absolute;top:3px;left:3px;width:14px;height:14px;background:var(--text3);border-radius:50%;transition:var(--transition);}
+.toggle-switch.on::after{left:22px;background:var(--gold);box-shadow:0 0 8px var(--gold);}
+.eq-panel{margin-top:16px;display:none;}
+.eq-panel.show{display:block;}
+.eq-grid{display:flex;gap:10px;align-items:flex-end;justify-content:space-between;height:100px;padding:8px 0;}
+.eq-band{display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;}
+.eq-slider-wrap{height:80px;display:flex;align-items:center;justify-content:center;}
+.eq-slider{writing-mode:vertical-lr;direction:rtl;-webkit-appearance:none;width:4px;height:70px;background:var(--black3);border-radius:2px;outline:none;cursor:pointer;}
+.eq-slider::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:12px;border-radius:50%;background:var(--gold);cursor:pointer;box-shadow:0 0 6px rgba(212,175,55,0.5);}
+.eq-label{font-size:9px;color:var(--text3);text-align:center;font-weight:600;letter-spacing:0.03em;}
+
+/* TRANSFORM PANEL */
+.transform-panel{background:var(--card);border:1px solid var(--border2);border-radius:var(--radius);padding:28px;margin-top:24px;}
+.transform-presets{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+.tp-chip{padding:6px 14px;border-radius:100px;border:1px solid var(--border2);background:var(--black3);color:var(--text2);font-size:12px;font-weight:600;cursor:pointer;transition:var(--transition);letter-spacing:0.03em;}
+.tp-chip:hover{border-color:var(--border);color:var(--gold);background:var(--gold-dim2);}
+.tp-chip.active{border-color:var(--gold);color:var(--gold);background:var(--gold-dim);}
+.transform-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:20px;}
+.tf-block{background:var(--black3);border:1px solid var(--border2);border-radius:12px;padding:16px;}
+.tf-label{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text3);margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
+.tf-value{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:var(--gold);line-height:1;margin-bottom:10px;}
+.tf-unit{font-size:12px;color:var(--text3);font-weight:400;margin-left:2px;}
+.tf-slider{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:2px;background:var(--black);outline:none;cursor:pointer;margin-bottom:5px;}
+.tf-slider::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--gold);cursor:pointer;box-shadow:0 0 0 3px rgba(212,175,55,0.18);transition:transform 0.15s;}
+.tf-slider::-webkit-slider-thumb:active{transform:scale(1.3);}
+.tf-slider::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--gold);border:none;cursor:pointer;}
+.tf-range-labels{display:flex;justify-content:space-between;font-size:9px;color:var(--text3);font-weight:600;}
+.tf-reset{margin-top:6px;background:none;border:none;color:var(--text3);font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;cursor:pointer;padding:2px 0;transition:color 0.2s;width:100%;text-align:center;}
+.tf-reset:hover{color:var(--gold);}
+.transform-summary{background:var(--black3);border:1px solid var(--border2);border-radius:10px;padding:14px 18px;margin-bottom:16px;}
+.ts-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+.ts-item{display:flex;flex-direction:column;gap:2px;margin-right:20px;}
+.ts-key{font-size:9px;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:0.07em;}
+.ts-val{font-size:13px;font-weight:700;color:var(--text2);transition:color 0.2s;}
+.ts-val.changed{color:var(--gold);}
+.ts-ffmpeg{font-size:10px;font-family:monospace;color:var(--text3);margin-top:8px;padding-top:8px;border-top:1px solid var(--border2);word-break:break-all;line-height:1.6;}
+.ts-ffmpeg span{color:var(--gold2);}
+
+/* PREVIEW PLAYER */
+.preview-player{background:var(--card2);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-top:24px;display:none;}
+.preview-player.show{display:block;}
+.pp-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+.pp-title{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--gold);}
+.pp-tabs{display:flex;gap:4px;}
+.pp-tab{padding:5px 12px;border-radius:6px;border:1px solid var(--border2);background:none;color:var(--text2);font-size:11px;font-weight:600;cursor:pointer;transition:var(--transition);}
+.pp-tab.active,.pp-tab:hover{border-color:var(--gold);color:var(--gold);background:var(--gold-dim2);}
+.pp-waveform-wrap{position:relative;height:80px;background:var(--black3);border-radius:10px;overflow:hidden;margin-bottom:16px;cursor:pointer;}
+.pp-canvas{width:100%;height:100%;display:block;}
+.pp-playhead{position:absolute;top:0;bottom:0;width:2px;background:var(--gold);box-shadow:0 0 8px var(--gold);pointer-events:none;}
+.pp-controls{display:flex;align-items:center;gap:14px;}
+.pp-play-btn{width:40px;height:40px;background:linear-gradient(135deg,var(--gold3),var(--gold));border-radius:50%;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:var(--transition);}
+.pp-play-btn:hover{transform:scale(1.08);}
+.pp-play-btn svg{margin-left:2px;}
+.pp-time{font-size:12px;color:var(--text2);font-variant-numeric:tabular-nums;min-width:80px;}
+.pp-vol-row{display:flex;align-items:center;gap:8px;margin-left:auto;}
+.pp-vol-icon{font-size:14px;color:var(--text3);}
+.pp-vol-slider{-webkit-appearance:none;appearance:none;width:72px;height:3px;border-radius:2px;background:var(--black);outline:none;cursor:pointer;}
+.pp-vol-slider::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:12px;border-radius:50%;background:var(--gold);cursor:pointer;}
+.pp-meta{display:flex;gap:16px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border2);}
+.pp-meta-item{font-size:11px;color:var(--text3);}
+.pp-meta-item span{color:var(--text2);font-weight:600;}
+.pp-compare{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px;}
+.pp-compare-card{background:var(--black3);border:1px solid var(--border2);border-radius:10px;padding:12px 16px;}
+.pcc-label{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:6px;}
+.pcc-waveform{height:40px;display:flex;align-items:center;gap:1px;overflow:hidden;}
+.pcc-bar{width:2px;border-radius:1px;flex-shrink:0;}
+.pcc-tag{font-size:10px;font-weight:700;color:var(--text3);margin-top:6px;}
+.pcc-tag span{color:var(--gold);}
+
+/* PITCH STATUS */
+.pitch-status{display:inline-block;padding:3px 10px;background:var(--gold-dim);border:1px solid var(--border);border-radius:100px;font-size:10px;color:var(--gold);font-weight:600;margin-left:8px;vertical-align:middle;}
+
+/* CONVERT BUTTON & PROGRESS */
+.convert-btn-wrap{margin-top:20px;}
+.btn-convert{width:100%;padding:16px;background:linear-gradient(135deg,var(--gold3),var(--gold));border:none;border-radius:var(--radius2);font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#000;cursor:pointer;transition:var(--transition);letter-spacing:0.04em;position:relative;overflow:hidden;}
+.btn-convert:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(212,175,55,0.4);}
+.btn-convert:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
+.progress-panel{background:var(--card2);border:1px solid var(--gold-dim);border-radius:var(--radius);padding:28px;margin-top:20px;display:none;}
+.progress-panel.show{display:block;}
+.progress-status-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.progress-status-text{font-size:14px;font-weight:600;color:var(--gold);display:flex;align-items:center;gap:8px;}
+.progress-pct{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:var(--gold2);}
+.progress-bar-track{height:6px;background:var(--black3);border-radius:3px;overflow:hidden;margin-bottom:14px;}
+.progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--gold3),var(--gold2));border-radius:3px;width:0%;transition:width 0.3s ease;position:relative;}
+.progress-bar-fill::after{content:'';position:absolute;right:0;top:0;bottom:0;width:30px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.4));border-radius:3px;animation:shimmer 1s linear infinite;}
+@keyframes shimmer{0%{opacity:0;}50%{opacity:1;}100%{opacity:0;}}
+.waveform-loading{display:flex;align-items:center;justify-content:center;gap:2px;height:30px;margin:12px 0;}
+.wl-bar{width:3px;background:var(--gold);border-radius:2px;animation:wlAnim var(--d,0.6s) ease-in-out infinite alternate;animation-delay:var(--dl,0s);}
+@keyframes wlAnim{from{height:4px;opacity:0.4;}to{height:24px;opacity:1;}}
+.progress-meta{display:flex;gap:24px;}
+.progress-meta-item{font-size:12px;color:var(--text2);}
+.progress-meta-item span{color:var(--text);font-weight:600;}
+
+/* RESULT */
+.result-panel{background:var(--card2);border:1px solid var(--gold-dim);border-radius:var(--radius);padding:28px;margin-top:20px;display:none;}
+.result-panel.show{display:block;}
+.result-header{display:flex;align-items:center;gap:12px;margin-bottom:24px;}
+.result-success-icon{width:40px;height:40px;background:rgba(60,200,100,0.15);border:1px solid rgba(60,200,100,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.result-title{font-size:16px;font-weight:700;}
+.result-sub{font-size:13px;color:var(--text2);}
+.mini-player{background:var(--black3);border:1px solid var(--border2);border-radius:var(--radius2);padding:16px 20px;margin-bottom:20px;}
+.mini-player-controls{display:flex;align-items:center;gap:14px;}
+.mini-play{width:36px;height:36px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;flex-shrink:0;transition:var(--transition);}
+.mini-play:hover{transform:scale(1.1);}
+.mini-waveform{flex:1;height:36px;display:flex;align-items:center;gap:1.5px;overflow:hidden;}
+.mwb{width:2px;background:var(--border);border-radius:1px;flex-shrink:0;}
+.mwb.played{background:var(--gold);}
+.result-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;}
+.result-info-item{background:var(--black3);border:1px solid var(--border2);border-radius:var(--radius3);padding:12px 16px;}
+.rii-label{font-size:11px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px;}
+.rii-value{font-size:15px;font-weight:700;color:var(--gold);}
+.result-actions{display:flex;gap:12px;}
+.btn-download{flex:1;padding:13px;background:linear-gradient(135deg,var(--gold3),var(--gold));border:none;border-radius:var(--radius3);color:#000;font-family:'Syne',sans-serif;font-weight:700;font-size:14px;cursor:pointer;transition:var(--transition);display:flex;align-items:center;justify-content:center;gap:8px;}
+.btn-download:hover{box-shadow:0 6px 24px rgba(212,175,55,0.4);transform:translateY(-1px);}
+.btn-download:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
+.btn-again{padding:13px 20px;background:transparent;border:1px solid var(--border);border-radius:var(--radius3);color:var(--gold);font-family:'Syne',sans-serif;font-weight:600;font-size:14px;cursor:pointer;transition:var(--transition);white-space:nowrap;}
+.btn-again:hover{background:var(--gold-dim2);}
+
+/* HISTORY */
+#page-history{max-width:1100px;margin:0 auto;padding:48px 32px 80px;}
+.history-table-wrap{background:var(--card);border:1px solid var(--border2);border-radius:var(--radius);overflow:hidden;}
+.history-table{width:100%;border-collapse:collapse;}
+.history-table th{padding:14px 20px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text3);background:var(--black3);border-bottom:1px solid var(--border2);}
+.history-table td{padding:16px 20px;font-size:14px;border-bottom:1px solid var(--border2);vertical-align:middle;}
+.history-table tr:last-child td{border-bottom:none;}
+.history-table tr:hover td{background:var(--gold-dim3);}
+.status-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:100px;font-size:11px;font-weight:700;}
+.status-badge.success{background:rgba(60,200,100,0.12);color:#4de082;border:1px solid rgba(60,200,100,0.25);}
+.status-badge.processing{background:var(--gold-dim2);color:var(--gold);border:1px solid var(--border2);}
+.btn-dl-small{padding:6px 14px;background:var(--gold-dim2);border:1px solid var(--border);border-radius:6px;color:var(--gold);font-size:12px;font-weight:600;cursor:pointer;transition:var(--transition);white-space:nowrap;}
+.btn-dl-small:hover{background:var(--gold-dim);}
+.format-badge{display:inline-block;padding:2px 8px;background:var(--gold-dim2);border:1px solid var(--border2);border-radius:4px;font-size:11px;font-weight:700;color:var(--gold);letter-spacing:0.05em;}
+
+/* DASHBOARD */
+#page-dashboard{max-width:1200px;margin:0 auto;padding:48px 32px 80px;}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-bottom:32px;}
+.stat-card{background:var(--card);border:1px solid var(--border2);border-radius:var(--radius);padding:24px;position:relative;overflow:hidden;transition:var(--transition);}
+.stat-card:hover{border-color:var(--border);transform:translateY(-3px);box-shadow:var(--shadow-gold);}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:var(--transition);}
+.stat-card:hover::before{opacity:1;}
+.sc-icon{width:40px;height:40px;background:var(--gold-dim);border:1px solid var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
+.sc-value{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--gold);line-height:1;margin-bottom:4px;}
+.sc-label{font-size:13px;color:var(--text2);}
+.sc-delta{font-size:11px;color:#4de082;margin-top:8px;font-weight:600;}
+.dash-grid{display:grid;grid-template-columns:1fr 360px;gap:24px;}
+.activity-card{background:var(--card);border:1px solid var(--border2);border-radius:var(--radius);padding:28px;}
+.activity-card-title{font-size:14px;font-weight:700;margin-bottom:20px;color:var(--text);}
+.activity-item{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--border2);}
+.activity-item:last-child{border-bottom:none;}
+.act-icon{width:36px;height:36px;background:var(--gold-dim);border:1px solid var(--border);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.act-name{font-size:13px;font-weight:600;flex:1;}
+.act-meta{font-size:11px;color:var(--text3);margin-top:2px;}
+.act-size{font-size:12px;color:var(--text2);}
+.formats-card{background:var(--card);border:1px solid var(--border2);border-radius:var(--radius);padding:28px;}
+.formats-card-title{font-size:14px;font-weight:700;margin-bottom:20px;}
+.format-row{display:flex;align-items:center;gap:12px;padding:8px 0;}
+.format-row-name{font-size:13px;font-weight:700;color:var(--gold);width:40px;}
+.format-row-bar{flex:1;height:6px;background:var(--black3);border-radius:3px;overflow:hidden;}
+.format-row-fill{height:100%;background:linear-gradient(90deg,var(--gold3),var(--gold2));border-radius:3px;}
+.format-row-pct{font-size:12px;color:var(--text2);width:36px;text-align:right;}
+
+/* SETTINGS */
+#page-settings{max-width:800px;margin:0 auto;padding:48px 32px 80px;}
+.settings-section{background:var(--card);border:1px solid var(--border2);border-radius:var(--radius);padding:28px;margin-bottom:20px;}
+.settings-section-title{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--gold);margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--border2);}
+.setting-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--border2);}
+.setting-row:last-child{border-bottom:none;}
+.setting-label{font-size:14px;font-weight:600;}
+.setting-desc{font-size:12px;color:var(--text2);margin-top:2px;}
+.auto-delete-group{display:flex;gap:8px;}
+.auto-delete-btn{padding:6px 14px;background:var(--black3);border:1px solid var(--border2);border-radius:6px;color:var(--text2);font-size:12px;font-weight:600;cursor:pointer;transition:var(--transition);}
+.auto-delete-btn.active{border-color:var(--gold);color:var(--gold);background:var(--gold-dim2);}
+
+/* FOOTER */
+.footer{background:var(--black2);border-top:1px solid var(--border2);padding:32px 60px;display:flex;align-items:center;justify-content:space-between;}
+.footer-left{font-size:13px;color:var(--text3);}
+.footer-left strong{color:var(--gold);}
+.footer-tagline{font-size:12px;color:var(--text3);font-style:italic;}
+
+/* SPINNER */
+.spinner{width:16px;height:16px;border:2px solid rgba(0,0,0,0.2);border-top-color:#000;border-radius:50%;animation:spin 0.7s linear infinite;display:inline-block;}
+.spinner-gold{width:16px;height:16px;border:2px solid rgba(212,175,55,0.2);border-top-color:var(--gold);border-radius:50%;animation:spin 0.7s linear infinite;display:inline-block;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* GLOW */
+.glow-dots{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0;}
+.gd{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(212,175,55,0.12) 0%,transparent 70%);animation:gdDrift var(--t,20s) ease-in-out infinite;animation-delay:var(--td,0s);}
+@keyframes gdDrift{0%,100%{transform:translate(0,0);}33%{transform:translate(var(--mx,20px),var(--my,-15px));}66%{transform:translate(var(--mx2,-10px),var(--my2,25px));}}
+
+.fade-in{animation:fadeIn 0.4s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:none;}}
+
+/* TOAST */
+.toast{position:fixed;bottom:32px;right:32px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 20px;font-size:13px;color:var(--text);z-index:9998;opacity:0;transform:translateY(16px);transition:all 0.3s ease;pointer-events:none;display:flex;align-items:center;gap:10px;max-width:320px;box-shadow:var(--shadow);}
+.toast.show{opacity:1;transform:none;}
+.toast-icon{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.toast-icon.success{background:rgba(60,200,100,0.2);}
+.toast-icon.info{background:var(--gold-dim);}
+.toast-icon.error{background:rgba(255,80,80,0.2);}
+
+@media(max-width:1100px){
+  .hero{grid-template-columns:1fr;padding:40px 32px;}
+  .hero-visual{display:none;}
+  .features-row{grid-template-columns:1fr 1fr;padding:0 32px 60px;}
+  .stats-grid{grid-template-columns:1fr 1fr;}
+  .dash-grid{grid-template-columns:1fr;}
+  .transform-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:900px){
+  .converter-grid{grid-template-columns:1fr;}
+  .navbar{padding:0 20px;}
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+  .btn-nav-cta{display:none;}
+}
+@media(max-width:600px){
+  .features-row{grid-template-columns:1fr;}
+  .stats-grid{grid-template-columns:1fr;}
+  .hero{padding:28px 20px;}
+  .hero-stats{gap:20px;}
+  #page-converter,#page-history,#page-dashboard,#page-settings{padding:28px 16px 60px;}
+  .footer{flex-direction:column;gap:12px;padding:24px 20px;text-align:center;}
+  .result-info-grid{grid-template-columns:1fr;}
+  .transform-grid{grid-template-columns:1fr;}
+  .pp-compare{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<div class="glow-dots" aria-hidden="true">
+  <div class="gd" style="width:600px;height:600px;top:-200px;left:-100px;--t:25s;--td:0s;--mx:40px;--my:20px;--mx2:-30px;--my2:40px;"></div>
+  <div class="gd" style="width:400px;height:400px;top:50%;right:-100px;--t:20s;--td:-8s;--mx:-30px;--my:-40px;--mx2:20px;--my2:-20px;"></div>
+  <div class="gd" style="width:300px;height:300px;bottom:100px;left:30%;--t:18s;--td:-4s;--mx:20px;--my:-30px;--mx2:-15px;--my2:20px;"></div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="globalToast">
+  <div class="toast-icon" id="toastIcon"></div>
+  <span id="toastMsg"></span>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="nav-logo" onclick="showPage('home')">
+    <div class="nav-logo-icon">
+      <svg viewBox="0 0 20 20" fill="none"><path d="M2 10h2l2-5 2 10 2-7 2 4 2-2 2 0" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <span class="nav-logo-text">LML <span>Audio</span></span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#" class="active" onclick="navClick(this,'home');return false;">Home</a></li>
+    <li><a href="#" onclick="navClick(this,'converter');return false;">Converter</a></li>
+    <li><a href="#" onclick="navClick(this,'history');return false;">History</a></li>
+    <li><a href="#" onclick="navClick(this,'dashboard');return false;">Dashboard</a></li>
+    <li><a href="#" onclick="navClick(this,'settings');return false;">Settings</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="btn-nav-cta" onclick="showPage('converter')">Start Converting</button>
+    <div class="hamburger" onclick="toggleMobileMenu()" id="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<div id="mobileMenu" style="display:none;position:fixed;top:64px;left:0;right:0;background:rgba(8,8,8,0.97);border-bottom:1px solid var(--border2);padding:20px 24px;z-index:999;backdrop-filter:blur(20px);">
+  <ul style="list-style:none;display:flex;flex-direction:column;gap:4px;">
+    <li><a href="#" style="color:var(--text2);text-decoration:none;font-size:15px;font-weight:500;padding:12px 0;display:block;" onclick="navClick(this,'home');toggleMobileMenu();return false;">Home</a></li>
+    <li><a href="#" style="color:var(--text2);text-decoration:none;font-size:15px;font-weight:500;padding:12px 0;display:block;" onclick="navClick(this,'converter');toggleMobileMenu();return false;">Converter</a></li>
+    <li><a href="#" style="color:var(--text2);text-decoration:none;font-size:15px;font-weight:500;padding:12px 0;display:block;" onclick="navClick(this,'history');toggleMobileMenu();return false;">History</a></li>
+    <li><a href="#" style="color:var(--text2);text-decoration:none;font-size:15px;font-weight:500;padding:12px 0;display:block;" onclick="navClick(this,'dashboard');toggleMobileMenu();return false;">Dashboard</a></li>
+    <li><a href="#" style="color:var(--text2);text-decoration:none;font-size:15px;font-weight:500;padding:12px 0;display:block;" onclick="navClick(this,'settings');toggleMobileMenu();return false;">Settings</a></li>
+  </ul>
+</div>
+
+<!-- HOME -->
+<section class="page active fade-in" id="page-home">
+  <div class="hero">
+    <div class="hero-left">
+      <div class="hero-badge"><span class="badge-dot"></span>Premium Audio Platform</div>
+      <h1 class="hero-title">LML Audio<span class="line2">Converter</span></h1>
+      <p class="hero-sub">Professional Audio Conversion Platform with Premium Enhancement Tools. Convert, enhance, and transform your audio with studio-grade precision — all in your browser, no upload needed.</p>
+      <div class="hero-buttons">
+        <button class="btn-primary" onclick="showPage('converter')">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1v9M5 7l3 3 3-3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 12h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          Upload Audio
+        </button>
+        <button class="btn-secondary" onclick="showPage('converter')">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M6 6l4 2-4 2V6z" fill="currentColor"/></svg>
+          Open Converter
+        </button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item"><div class="stat-num">50+</div><div class="stat-label">Formats</div></div>
+        <div class="stat-item"><div class="stat-num">320kbps</div><div class="stat-label">Max Quality</div></div>
+        <div class="stat-item"><div class="stat-num">100%</div><div class="stat-label">Browser-side</div></div>
+        <div class="stat-item"><div class="stat-num">Real</div><div class="stat-label">Download</div></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="visualizer-card">
+        <div class="vis-header">
+          <span class="vis-title">Audio Visualizer</span>
+          <span class="vis-badge">● LIVE</span>
+        </div>
+        <div class="waveform-container" id="heroWaveform"></div>
+        <div class="vis-controls">
+          <button class="vis-play-btn" id="heroPlayBtn" onclick="toggleHeroPlay()">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 2l9 5-9 5V2z" fill="#000"/></svg>
+          </button>
+          <div class="vis-progress"><div class="vis-progress-fill"></div></div>
+          <span class="vis-time">1:24</span>
+        </div>
+        <div class="vis-formats">
+          <span class="format-chip active">MP3</span>
+          <span class="format-chip">WAV</span>
+          <span class="format-chip">FLAC</span>
+          <span class="format-chip">AAC</span>
+          <span class="format-chip">OGG</span>
+          <span class="format-chip">M4A</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="features-row">
+    <div class="feature-card">
+      <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M2 10h2l2-5 2 10 2-7 2 4 2-2 2 0" stroke="#D4AF37" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="feature-title">Real Download</div>
+      <div class="feature-desc">Process dan download langsung di browser — tidak ada server, tidak ada upload ke cloud.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="#D4AF37" stroke-width="1.6"/><path d="M7 9.5l2.5 2.5 3.5-4" stroke="#D4AF37" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="feature-title">Pitch Shifting</div>
+      <div class="feature-desc">Pitch shifting nyata menggunakan Web Audio API — ubah nada suara secara akurat hingga ±12 semitone.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 4l12 6-12 6V4z" fill="#D4AF37"/></svg></div>
+      <div class="feature-title">Real-time Preview</div>
+      <div class="feature-desc">Preview output sebelum download — dengan perubahan volume, speed, dan pitch langsung terdengar.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="6" height="6" rx="2" stroke="#D4AF37" stroke-width="1.6"/><rect x="11" y="3" width="6" height="6" rx="2" stroke="#D4AF37" stroke-width="1.6"/><rect x="3" y="11" width="6" height="6" rx="2" stroke="#D4AF37" stroke-width="1.6"/><rect x="11" y="11" width="6" height="6" rx="2" stroke="#D4AF37" stroke-width="1.6"/></svg></div>
+      <div class="feature-title">Zero Lag Sliders</div>
+      <div class="feature-desc">Slider volume, speed, pitch dioptimalkan — tanpa lag, update real-time mulus di preview player.</div>
+    </div>
+  </div>
+  <footer class="footer">
+    <div class="footer-left">© 2026 <strong>LML Audio Converter</strong></div>
+    <div class="footer-tagline">"All processing happens in your browser — private & instant"</div>
+  </footer>
+</section>
+
+<!-- CONVERTER -->
+<section class="page" id="page-converter">
+  <div class="section-header">
+    <div class="section-label">Studio Tools</div>
+    <h2 class="section-title">Audio Converter</h2>
+    <p class="section-sub">Drop your file, configure settings, convert and download directly in your browser.</p>
+  </div>
+  <div class="converter-grid">
+    <!-- LEFT -->
+    <div>
+      <div class="upload-zone" id="uploadZone" ondrop="handleDrop(event)" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" onclick="document.getElementById('fileInput').click()">
+        <input type="file" id="fileInput" accept="audio/*" style="display:none" onchange="handleFileSelect(event)">
+        <div class="upload-icon-wrap">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M16 4v18M10 10l6-6 6 6" stroke="#D4AF37" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 24h20" stroke="#D4AF37" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <div class="upload-title">Drag &amp; Drop Audio File</div>
+        <div class="upload-sub">or click to browse your files</div>
+        <div class="upload-formats">
+          <span class="fmt-tag">MP3</span><span class="fmt-tag">WAV</span><span class="fmt-tag">AAC</span>
+          <span class="fmt-tag">FLAC</span><span class="fmt-tag">OGG</span><span class="fmt-tag">M4A</span>
+        </div>
+      </div>
+
+      <div class="file-info-card" id="fileInfoCard" style="margin-top:16px;">
+        <div class="file-info-header">
+          <div class="file-icon-big">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9 19c-4 1.5-4-2.5-5-3m10 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 00-1.3-3.2 4.2 4.2 0 00-.1-3.2s-1-.3-3.3 1.3a11.4 11.4 0 00-6 0C6.3 2.8 5.3 3.1 5.3 3.1a4.2 4.2 0 00-.1 3.2A4.6 4.6 0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21" stroke="#D4AF37" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <div class="file-name" id="fileName">audio_track.mp3</div>
+            <div class="file-meta-row">
+              <div class="file-meta-item">Size: <span id="fileSize">—</span></div>
+              <div class="file-meta-item">Duration: <span id="fileDuration">—</span></div>
+              <div class="file-meta-item">Format: <span id="fileFormat">—</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- REAL-TIME PREVIEW PLAYER -->
+      <div class="preview-player" id="previewPlayer">
+        <div class="pp-header">
+          <div class="pp-title">Live Preview</div>
+          <div class="pp-tabs">
+            <button class="pp-tab active" id="tabOrig" onclick="switchPreviewTab('original')">Original</button>
+            <button class="pp-tab" id="tabProc" onclick="switchPreviewTab('processed')">Processed</button>
+          </div>
+        </div>
+        <div class="pp-waveform-wrap" id="ppWaveformWrap" onclick="seekAudio(event)">
+          <canvas class="pp-canvas" id="ppCanvas"></canvas>
+          <div class="pp-playhead" id="ppPlayhead" style="left:0%"></div>
+        </div>
+        <div class="pp-controls">
+          <button class="pp-play-btn" id="ppPlayBtn" onclick="togglePreviewPlay()">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 2l9 5-9 5V2z" fill="#000"/></svg>
+          </button>
+          <div class="pp-time" id="ppTimeDisplay">0:00 / 0:00</div>
+          <div class="pp-vol-row">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 6H1v4h2l4 3V3L3 6z" fill="#555550"/><path d="M11 5c1 .7 1.5 1.8 1.5 3s-.5 2.3-1.5 3" stroke="#555550" stroke-width="1.3" stroke-linecap="round"/></svg>
+            <input class="pp-vol-slider" id="ppVolSlider" type="range" min="0" max="100" value="80" oninput="setPreviewVolume(this.value)">
+          </div>
+        </div>
+        <div class="pp-meta">
+          <div class="pp-meta-item">File: <span id="ppFileName">—</span></div>
+          <div class="pp-meta-item">Duration: <span id="ppDuration">—</span></div>
+          <div class="pp-meta-item">Format: <span id="ppFormat">—</span></div>
+          <div class="pp-meta-item">Sample Rate: <span id="ppSampleRate">—</span></div>
+        </div>
+        <div class="pp-compare">
+          <div class="pp-compare-card">
+            <div class="pcc-label">Original Waveform</div>
+            <div class="pcc-waveform" id="pccOrigWave"></div>
+            <div class="pcc-tag">Volume: <span id="origVolTag">100%</span> · Pitch: <span id="origPitchTag">0 st</span></div>
+          </div>
+          <div class="pp-compare-card">
+            <div class="pcc-label">Processed Waveform</div>
+            <div class="pcc-waveform" id="pccProcWave"></div>
+            <div class="pcc-tag">Volume: <span id="procVolTag">100%</span> · Pitch: <span id="procPitchTag">0 st</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AUDIO TRANSFORM PANEL -->
+      <div class="transform-panel">
+        <div class="panel-title">Audio Transform</div>
+        <div style="margin-bottom:16px;">
+          <div style="font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;">Quick Presets</div>
+          <div class="transform-presets" id="transformPresets">
+            <div class="tp-chip active" data-preset="normal" onclick="applyTransformPreset(this)">Normal</div>
+            <div class="tp-chip" data-preset="boost" onclick="applyTransformPreset(this)">Loud &amp; Clear</div>
+            <div class="tp-chip" data-preset="deep" onclick="applyTransformPreset(this)">Deep Bass</div>
+            <div class="tp-chip" data-preset="radio" onclick="applyTransformPreset(this)">Radio Voice</div>
+            <div class="tp-chip" data-preset="chipmunk" onclick="applyTransformPreset(this)">Chipmunk</div>
+            <div class="tp-chip" data-preset="slow" onclick="applyTransformPreset(this)">Slow &amp; Low</div>
+            <div class="tp-chip" data-preset="cinema" onclick="applyTransformPreset(this)">Cinema</div>
+            <div class="tp-chip" data-preset="concert" onclick="applyTransformPreset(this)">Concert Pitch</div>
+          </div>
+        </div>
+        <div class="transform-grid">
+          <!-- VOLUME -->
+          <div class="tf-block">
+            <div class="tf-label">Volume <span id="volChanged" style="color:var(--gold);display:none;">●</span></div>
+            <div class="tf-value" id="volDisplay">100<span class="tf-unit">%</span></div>
+            <input class="tf-slider" id="volSlider" type="range" min="0" max="200" value="100" step="1" oninput="onTransformChange()">
+            <div class="tf-range-labels"><span>0%</span><span>100%</span><span>200%</span></div>
+            <button class="tf-reset" onclick="resetVolume()">↺ Reset</button>
+          </div>
+          <!-- SPEED -->
+          <div class="tf-block">
+            <div class="tf-label">Speed <span id="spdChanged" style="color:var(--gold);display:none;">●</span></div>
+            <div class="tf-value" id="spdDisplay">1.00<span class="tf-unit">×</span></div>
+            <input class="tf-slider" id="spdSlider" type="range" min="25" max="400" value="100" step="1" oninput="onTransformChange()">
+            <div class="tf-range-labels"><span>0.25×</span><span>1×</span><span>4×</span></div>
+            <button class="tf-reset" onclick="resetSpeed()">↺ Reset</button>
+          </div>
+          <!-- PITCH -->
+          <div class="tf-block">
+            <div class="tf-label">Pitch <span id="pchChanged" style="color:var(--gold);display:none;">●</span></div>
+            <div class="tf-value" id="pchDisplay">0<span class="tf-unit">st</span></div>
+            <input class="tf-slider" id="pchSlider" type="range" min="-12" max="12" value="0" step="1" oninput="onTransformChange()">
+            <div class="tf-range-labels"><span>−12</span><span>0</span><span>+12</span></div>
+            <button class="tf-reset" onclick="resetPitch()">↺ Reset</button>
+          </div>
+        </div>
+        <div class="transform-summary">
+          <div class="ts-row">
+            <div class="ts-item"><div class="ts-key">Volume</div><div class="ts-val" id="tsVol">100%</div></div>
+            <div class="ts-item"><div class="ts-key">Speed</div><div class="ts-val" id="tsSpd">1.00×</div></div>
+            <div class="ts-item"><div class="ts-key">Pitch</div><div class="ts-val" id="tsPch">0 semitones</div></div>
+          </div>
+          <div class="ts-ffmpeg" id="tsFFmpeg">Pitch: <span>Menggunakan Web Audio API — playbackRate + detune (100 cents/semitone)</span></div>
+        </div>
+      </div>
+
+      <!-- ENHANCEMENT PANEL -->
+      <div class="enhancement-panel">
+        <div class="panel-title">Audio Enhancement</div>
+        <div class="toggle-row">
+          <div class="toggle-label">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v12M4 6h8" stroke="#D4AF37" stroke-width="1.5" stroke-linecap="round"/></svg>
+            Volume Boost<span class="toggle-label-sub">+3dB amplification</span>
+          </div>
+          <div class="toggle-switch" id="toggleVolumeBoost" onclick="this.classList.toggle('on')"></div>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-label">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 12c1-2 2-4 4-2s3 3 5 1" stroke="#D4AF37" stroke-width="1.5" stroke-linecap="round"/></svg>
+            Bass Boost<span class="toggle-label-sub">Enhanced low frequencies</span>
+          </div>
+          <div class="toggle-switch" id="toggleBassBoost" onclick="this.classList.toggle('on')"></div>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-label">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="5" width="12" height="6" rx="2" stroke="#D4AF37" stroke-width="1.5"/><path d="M8 2v2M8 12v2" stroke="#D4AF37" stroke-width="1.5" stroke-linecap="round"/></svg>
+            Normalize Audio<span class="toggle-label-sub">Auto level adjustment</span>
+          </div>
+          <div class="toggle-switch on" id="toggleNormalize" onclick="this.classList.toggle('on')"></div>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-label">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8h2l2-4 2 8 2-5 2 3 2-2" stroke="#D4AF37" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Equalizer
+          </div>
+          <div class="toggle-switch" id="eqToggle" onclick="toggleEQ(this)"></div>
+        </div>
+        <div class="eq-panel" id="eqPanel">
+          <div class="eq-grid" id="eqGrid"></div>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-label">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8c1-3 5-3 6 0s5 3 6 0" stroke="#D4AF37" stroke-width="1.5" stroke-linecap="round"/></svg>
+            Noise Reduction<span class="toggle-label-sub">AI background removal</span>
+          </div>
+          <div class="toggle-switch" id="toggleNoiseRedux" onclick="this.classList.toggle('on')"></div>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-label">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="5" stroke="#D4AF37" stroke-width="1.5"/><path d="M6 8a2 2 0 104 0 2 2 0 00-4 0z" fill="#D4AF37" opacity="0.5"/></svg>
+            Stereo Widening<span class="toggle-label-sub">Mid-side processing</span>
+          </div>
+          <div class="toggle-switch" id="toggleStereo" onclick="this.classList.toggle('on')"></div>
+        </div>
+      </div>
+
+      <!-- PROGRESS -->
+      <div class="progress-panel" id="progressPanel">
+        <div class="progress-status-row">
+          <div class="progress-status-text" id="progressStatus">
+            <div class="spinner-gold"></div>
+            <span id="progressStatusText">Initializing...</span>
+          </div>
+          <div class="progress-pct" id="progressPct">0%</div>
+        </div>
+        <div class="progress-bar-track"><div class="progress-bar-fill" id="progressFill"></div></div>
+        <div class="waveform-loading" id="waveformLoading"></div>
+        <div class="progress-meta">
+          <div class="progress-meta-item">Elapsed: <span id="progTime">—</span></div>
+          <div class="progress-meta-item">Stage: <span id="progStage">—</span></div>
+          <div class="progress-meta-item">Engine: <span id="progEngine">Web Audio API</span></div>
+        </div>
+      </div>
+
+      <!-- RESULT -->
+      <div class="result-panel" id="resultPanel">
+        <div class="result-header">
+          <div class="result-success-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10l3 3 7-7" stroke="#4de082" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <div class="result-title">Conversion Complete</div>
+            <div class="result-sub">File siap didownload langsung di browser</div>
+          </div>
+        </div>
+        <div class="mini-player">
+          <div class="mini-player-controls">
+            <button class="mini-play" onclick="toggleMiniPlay(this)">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 2l9 5-9 5V2z" fill="#000"/></svg>
+            </button>
+            <div class="mini-waveform" id="miniWaveform"></div>
+          </div>
+        </div>
+        <div class="result-info-grid">
+          <div class="result-info-item"><div class="rii-label">Format</div><div class="rii-value" id="resFormat">WAV</div></div>
+          <div class="result-info-item"><div class="rii-label">File Size</div><div class="rii-value" id="resSize">—</div></div>
+          <div class="result-info-item"><div class="rii-label">Duration</div><div class="rii-value" id="resDuration">—</div></div>
+          <div class="result-info-item"><div class="rii-label">Sample Rate</div><div class="rii-value" id="resSampleRate">44100 Hz</div></div>
+        </div>
+        <div class="result-actions">
+          <button class="btn-download" id="downloadBtn" onclick="doRealDownload()">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v8M5 7l3 3 3-3" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 12h12" stroke="#000" stroke-width="1.8" stroke-linecap="round"/></svg>
+            Download File
+          </button>
+          <button class="btn-again" onclick="resetConverter()">Convert Again</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div>
+      <div class="settings-panel">
+        <div class="panel-title">Conversion Settings</div>
+        <div class="form-group">
+          <label class="form-label">Convert To</label>
+          <select class="form-select" id="outputFormat">
+            <option value="wav" selected>WAV — Waveform Audio</option>
+            <option value="mp3">MP3 — (requires encoder lib)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Sample Rate</label>
+          <select class="form-select" id="sampleRate">
+            <option value="22050">22050 Hz — Radio Quality</option>
+            <option value="44100" selected>44100 Hz — CD Quality</option>
+            <option value="48000">48000 Hz — Studio Quality</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Channel</label>
+          <select class="form-select" id="channel">
+            <option value="2" selected>Stereo (2ch)</option>
+            <option value="1">Mono (1ch)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Quality Preset</label>
+          <div class="preset-grid">
+            <button class="preset-btn" onclick="selectPreset(this,'low')">Low</button>
+            <button class="preset-btn" onclick="selectPreset(this,'medium')">Medium</button>
+            <button class="preset-btn active" onclick="selectPreset(this,'high')">High</button>
+            <button class="preset-btn" onclick="selectPreset(this,'studio')">Studio</button>
+          </div>
+        </div>
+        <div class="convert-btn-wrap">
+          <button class="btn-convert" id="convertBtn" onclick="startConversion()">Convert &amp; Process Audio</button>
+        </div>
+      </div>
+      <div style="background:var(--gold-dim3);border:1px solid var(--border2);border-radius:var(--radius2);padding:16px 20px;margin-top:16px;">
+        <div style="font-size:11px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px;">100% Browser-side</div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.7;">
+          Semua processing menggunakan <strong style="color:var(--text)">Web Audio API + OfflineAudioContext</strong>. File diproses dan didownload langsung — <span style="color:var(--gold)">tidak ada upload ke server</span>. Output dalam format WAV 16-bit.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HISTORY -->
+<section class="page" id="page-history">
+  <div class="section-header">
+    <div class="section-label">Records</div>
+    <h2 class="section-title">Conversion History</h2>
+    <p class="section-sub">All your previous conversions in one place.</p>
+  </div>
+  <div class="history-table-wrap">
+    <table class="history-table">
+      <thead><tr><th>File Name</th><th>Date</th><th>Format</th><th>Size</th><th>Status</th><th>Action</th></tr></thead>
+      <tbody id="historyTableBody"></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- DASHBOARD -->
+<section class="page" id="page-dashboard">
+  <div class="section-header">
+    <div class="section-label">Overview</div>
+    <h2 class="section-title">Dashboard</h2>
+    <p class="section-sub">Your audio conversion analytics and statistics.</p>
+  </div>
+  <div class="stats-grid">
+    <div class="stat-card"><div class="sc-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="4" width="14" height="11" rx="2" stroke="#D4AF37" stroke-width="1.5"/></svg></div><div class="sc-value" id="dash-total">142</div><div class="sc-label">Total Converted</div><div class="sc-delta">↑ 12 this week</div></div>
+    <div class="stat-card"><div class="sc-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2v9M6 8l3 3 3-3" stroke="#D4AF37" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 14h12" stroke="#D4AF37" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="sc-value">2.8 GB</div><div class="sc-label">Processed Total</div><div class="sc-delta">↑ 340 MB today</div></div>
+    <div class="stat-card"><div class="sc-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="6" stroke="#D4AF37" stroke-width="1.5"/><path d="M6 9l2 2 4-4" stroke="#D4AF37" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="sc-value">100%</div><div class="sc-label">Browser-side</div><div class="sc-delta">↑ No server needed</div></div>
+    <div class="stat-card"><div class="sc-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M2 9h2l2-4 2 8 2-5 2 3 2-3 2 1" stroke="#D4AF37" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="sc-value">1.2s</div><div class="sc-label">Avg. Process Time</div><div class="sc-delta">↓ Optimized engine</div></div>
+  </div>
+  <div class="dash-grid">
+    <div class="activity-card"><div class="activity-card-title">Recent Activity</div><div id="activityList"></div></div>
+    <div class="formats-card"><div class="formats-card-title">Format Distribution</div><div id="formatDist"></div></div>
+  </div>
+</section>
+
+<!-- SETTINGS -->
+<section class="page" id="page-settings">
+  <div class="section-header">
+    <div class="section-label">Preferences</div>
+    <h2 class="section-title">Settings</h2>
+    <p class="section-sub">Customize your LML Audio Converter experience.</p>
+  </div>
+  <div class="settings-section">
+    <div class="settings-section-title">Appearance</div>
+    <div class="setting-row"><div class="setting-info"><div class="setting-label">Dark Mode</div><div class="setting-desc">Use dark theme</div></div><div class="toggle-switch on" onclick="this.classList.toggle('on')"></div></div>
+    <div class="setting-row"><div class="setting-info"><div class="setting-label">Gold Accent Glow</div><div class="setting-desc">Enable gold glow effects on UI elements</div></div><div class="toggle-switch on" onclick="this.classList.toggle('on')"></div></div>
+    <div class="setting-row"><div class="setting-info"><div class="setting-label">Smooth Animations</div><div class="setting-desc">Enable all transition and animation effects</div></div><div class="toggle-switch on" onclick="this.classList.toggle('on')"></div></div>
+  </div>
+  <div class="settings-section">
+    <div class="settings-section-title">Conversion Defaults</div>
+    <div class="setting-row"><div class="setting-info"><div class="setting-label">Default Format</div><div class="setting-desc">Output format when starting a new conversion</div></div><select class="form-select" style="width:160px;"><option selected>WAV</option><option>MP3</option></select></div>
+    <div class="setting-row"><div class="setting-info"><div class="setting-label">Default Sample Rate</div><div class="setting-desc">Default audio sample rate</div></div><select class="form-select" style="width:160px;"><option>22050 Hz</option><option selected>44100 Hz</option><option>48000 Hz</option></select></div>
+  </div>
+  <div class="settings-section">
+    <div class="settings-section-title">File Management</div>
+    <div class="setting-row"><div class="setting-info"><div class="setting-label">Auto-Delete Uploaded Files</div><div class="setting-desc">Automatically remove temporary files after conversion</div></div><div class="auto-delete-group"><button class="auto-delete-btn" onclick="selectAutoDelete(this)">5 min</button><button class="auto-delete-btn active" onclick="selectAutoDelete(this)">15 min</button><button class="auto-delete-btn" onclick="selectAutoDelete(this)">30 min</button></div></div>
+    <div class="setting-row"><div class="setting-info"><div class="setting-label">Secure File Validation</div><div class="setting-desc">Validate audio file integrity before processing</div></div><div class="toggle-switch on" onclick="this.classList.toggle('on')"></div></div>
+    <div class="setting-row"><div class="setting-info"><div class="setting-label">Save History</div><div class="setting-desc">Keep conversion history locally</div></div><div class="toggle-switch on" onclick="this.classList.toggle('on')"></div></div>
+  </div>
+</section>
+
+<script>
+// ==================== NAVIGATION ====================
+function showPage(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  var page=document.getElementById('page-'+name);
+  if(page){page.classList.add('active');page.classList.remove('fade-in');void page.offsetWidth;page.classList.add('fade-in');}
+  document.querySelectorAll('.nav-links a').forEach(a=>{
+    a.classList.toggle('active',
+      (name==='home'&&a.textContent.trim()==='Home')||(name==='converter'&&a.textContent.trim()==='Converter')||
+      (name==='history'&&a.textContent.trim()==='History')||(name==='dashboard'&&a.textContent.trim()==='Dashboard')||
+      (name==='settings'&&a.textContent.trim()==='Settings'));
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function navClick(el,page){
+  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
+  el.classList.add('active');showPage(page);return false;
+}
+function toggleMobileMenu(){var m=document.getElementById('mobileMenu');m.style.display=m.style.display==='none'?'block':'none';}
+
+// ==================== TOAST ====================
+function showToast(msg,type){
+  var t=document.getElementById('globalToast');
+  var icon=document.getElementById('toastIcon');
+  document.getElementById('toastMsg').textContent=msg;
+  icon.className='toast-icon '+(type||'info');
+  if(type==='success') icon.innerHTML='<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l2.5 2.5 5.5-5.5" stroke="#4de082" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  else if(type==='error') icon.innerHTML='<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="#ff5050" stroke-width="1.8" stroke-linecap="round"/></svg>';
+  else icon.innerHTML='<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="#D4AF37" stroke-width="1.5"/><path d="M6 5v3" stroke="#D4AF37" stroke-width="1.5" stroke-linecap="round"/><circle cx="6" cy="3.5" r="0.5" fill="#D4AF37"/></svg>';
+  t.classList.add('show');
+  clearTimeout(t._timer);
+  t._timer=setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+// ==================== HERO WAVEFORM ====================
+(function(){
+  var c=document.getElementById('heroWaveform');if(!c)return;
+  var h=[20,35,50,60,45,30,55,70,40,60,80,55,35,65,45,75,50,40,60,35,55,70,45,80,55,40,65,50,35,70,60,45,55,40,75,50,65,35,55,80,45,60,35,70,50,40,65,55,45,70,35,60,50,40,55];
+  for(var i=0;i<55;i++){
+    var b=document.createElement('div');b.className='waveform-bar';
+    var ht=h[i%h.length];var sc=(Math.random()*1.5+1.2).toFixed(2);
+    b.style.cssText='--h:'+ht+'%;--dur:'+(Math.random()*0.8+0.8).toFixed(2)+'s;--delay:'+(i*0.04).toFixed(2)+'s;--scale:'+sc+';';
+    c.appendChild(b);
+  }
+})();
+var heroPlaying=true;
+function toggleHeroPlay(){
+  heroPlaying=!heroPlaying;
+  document.querySelectorAll('.waveform-bar').forEach(b=>b.style.animationPlayState=heroPlaying?'running':'paused');
+  document.getElementById('heroPlayBtn').innerHTML=heroPlaying?
+    '<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 2l9 5-9 5V2z" fill="#000"/></svg>':
+    '<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="3" y="2" width="3" height="10" rx="1" fill="#000"/><rect x="8" y="2" width="3" height="10" rx="1" fill="#000"/></svg>';
+}
+var chips=document.querySelectorAll('.format-chip'),chipIdx=0;
+setInterval(()=>{chips.forEach(c=>c.classList.remove('active'));chipIdx=(chipIdx+1)%chips.length;chips[chipIdx].classList.add('active');},1800);
+
+// ==================== EQ ====================
+(function(){
+  var bands=['60Hz','170Hz','310Hz','600Hz','1KHz','3KHz','6KHz','12KHz','14KHz','16KHz'];
+  var g=document.getElementById('eqGrid');if(!g)return;
+  bands.forEach(band=>{
+    var d=document.createElement('div');d.className='eq-band';
+    d.innerHTML='<div class="eq-slider-wrap"><input class="eq-slider" type="range" min="-12" max="12" value="'+(Math.floor(Math.random()*8-4))+'" orient="vertical"></div><div class="eq-label">'+band+'</div>';
+    g.appendChild(d);
+  });
+})();
+function toggleEQ(el){el.classList.toggle('on');document.getElementById('eqPanel').classList.toggle('show');}
+
+// ==================== WEB AUDIO ENGINE ====================
+var audioCtx=null,audioBuffer=null,currentFile=null;
+// Preview playback state
+var previewSource=null,previewGain=null,previewPitch=null;
+var isPreviewPlaying=false,previewStartTime=0,previewOffset=0,animFrame=null;
+// Processed buffer for download
+var processedBuffer=null,processedBlob=null;
+
+function getAudioCtx(){
+  if(!audioCtx||audioCtx.state==='closed') audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+  if(audioCtx.state==='suspended') audioCtx.resume();
+  return audioCtx;
+}
+
+function getTransformValues(){
+  var vol=parseInt(document.getElementById('volSlider').value)/100; // 0..2
+  var spd=parseInt(document.getElementById('spdSlider').value)/100; // 0.25..4
+  var pch=parseInt(document.getElementById('pchSlider').value);     // -12..12 semitones
+  return {vol,spd,pch};
+}
+
+// ===================== PREVIEW PLAYBACK (zero-lag) =====================
+// Strategy: use GainNode for volume (instant), playbackRate for speed (instant),
+// detune (cents) for pitch (native Web Audio, no lag, real pitch shift).
+
+function stopPreview(){
+  cancelAnimationFrame(animFrame);
+  if(previewSource){
+    try{previewSource.stop();}catch(e){}
+    previewSource=null;
+  }
+  if(isPreviewPlaying && audioBuffer){
+    var ctx=getAudioCtx();
+    var elapsed=(ctx.currentTime - previewStartTime) * getTransformValues().spd;
+    previewOffset=Math.min(previewOffset+elapsed, audioBuffer.duration);
+  }
+  isPreviewPlaying=false;
+  setPlayBtnIcon('ppPlayBtn',false);
+}
+
+function startPreview(){
+  if(!audioBuffer)return;
+  stopPreview();
+  var ctx=getAudioCtx();
+  var tf=getTransformValues();
+
+  // Build graph: source → gain → destination
+  previewGain=ctx.createGain();
+  var masterVol=parseInt(document.getElementById('ppVolSlider').value)/100;
+  previewGain.gain.value=tf.vol*masterVol;
+  previewGain.connect(ctx.destination);
+
+  previewSource=ctx.createBufferSource();
+  previewSource.buffer=audioBuffer;
+  // Speed via playbackRate
+  previewSource.playbackRate.value=tf.spd;
+  // Pitch via detune: 100 cents = 1 semitone
+  previewSource.detune.value=tf.pch*100;
+  previewSource.connect(previewGain);
+
+  var dur=audioBuffer.duration;
+  if(previewOffset>=dur) previewOffset=0;
+  previewSource.start(0, previewOffset);
+  previewStartTime=ctx.currentTime - previewOffset/tf.spd;
+  isPreviewPlaying=true;
+  setPlayBtnIcon('ppPlayBtn',true);
+
+  previewSource.onended=()=>{
+    if(isPreviewPlaying){
+      isPreviewPlaying=false;
+      previewOffset=0;
+      updatePlayhead(0);
+      setPlayBtnIcon('ppPlayBtn',false);
+    }
+    cancelAnimationFrame(animFrame);
+  };
+  animatePlayhead();
+}
+
+function togglePreviewPlay(){
+  if(!audioBuffer){showToast('Upload file audio terlebih dahulu','info');return;}
+  if(audioCtx&&audioCtx.state==='suspended') audioCtx.resume();
+  isPreviewPlaying ? stopPreview() : startPreview();
+}
+
+function animatePlayhead(){
+  animFrame=requestAnimationFrame(()=>{
+    if(!isPreviewPlaying||!audioBuffer)return;
+    var ctx=getAudioCtx();
+    var spd=getTransformValues().spd;
+    var elapsed=(ctx.currentTime - previewStartTime)*spd;
+    var cur=previewOffset+elapsed;
+    var pct=Math.min(1,cur/audioBuffer.duration);
+    updatePlayhead(pct);
+    updatePreviewTimeDisplay(cur,audioBuffer.duration);
+    if(pct<1) animatePlayhead();
+  });
+}
+
+function updatePlayhead(pct){var ph=document.getElementById('ppPlayhead');if(ph)ph.style.left=(pct*100)+'%';}
+function updatePreviewTimeDisplay(cur,dur){document.getElementById('ppTimeDisplay').textContent=fmtDur(Math.min(cur,dur))+' / '+fmtDur(dur);}
+
+function setPlayBtnIcon(id,playing){
+  document.getElementById(id).innerHTML=playing?
+    '<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="1.5" width="4" height="11" rx="1" fill="#000"/><rect x="8" y="1.5" width="4" height="11" rx="1" fill="#000"/></svg>':
+    '<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 2l9 5-9 5V2z" fill="#000"/></svg>';
+}
+
+// NO-LAG slider: update live nodes without restarting
+var transformDebounce=null;
+function onTransformChange(){
+  var tf=getTransformValues();
+  var vol=tf.vol, spd=tf.spd, pch=tf.pch;
+
+  // Update displays
+  document.getElementById('volDisplay').innerHTML=(Math.round(vol*100))+'<span class="tf-unit">%</span>';
+  document.getElementById('spdDisplay').innerHTML=spd.toFixed(2)+'<span class="tf-unit">×</span>';
+  document.getElementById('pchDisplay').innerHTML=(pch>0?'+':'')+pch+'<span class="tf-unit">st</span>';
+  document.getElementById('volChanged').style.display=vol!==1?'inline':'none';
+  document.getElementById('spdChanged').style.display=spd!==1?'inline':'none';
+  document.getElementById('pchChanged').style.display=pch!==0?'inline':'none';
+
+  var tsVol=document.getElementById('tsVol'),tsSpd=document.getElementById('tsSpd'),tsPch=document.getElementById('tsPch');
+  tsVol.textContent=Math.round(vol*100)+'%'; tsVol.className='ts-val'+(vol!==1?' changed':'');
+  tsSpd.textContent=spd.toFixed(2)+'×'; tsSpd.className='ts-val'+(spd!==1?' changed':'');
+  tsPch.textContent=(pch>=0?'+':'')+pch+' semitones'; tsPch.className='ts-val'+(pch!==0?' changed':'');
+
+  var flags=[];
+  if(vol!==1) flags.push('volume='+vol.toFixed(2));
+  if(spd!==1) flags.push('atempo='+spd.toFixed(2));
+  if(pch!==0) flags.push('detune='+(pch*100)+' cents ('+pch+' semitones)');
+  document.getElementById('tsFFmpeg').innerHTML='Web Audio: <span>'+(flags.length?flags.join(' | '):'(no changes)')+'</span>';
+
+  // Live update playing nodes — ZERO LAG, no restart needed
+  if(previewGain && isPreviewPlaying){
+    var masterVol=parseInt(document.getElementById('ppVolSlider').value)/100;
+    previewGain.gain.setTargetAtTime(vol*masterVol, getAudioCtx().currentTime, 0.01);
+  }
+  if(previewSource && isPreviewPlaying){
+    previewSource.playbackRate.setTargetAtTime(spd, getAudioCtx().currentTime, 0.01);
+    previewSource.detune.setTargetAtTime(pch*100, getAudioCtx().currentTime, 0.01);
+  }
+
+  // If not playing, just update waveform visual with debounce
+  clearTimeout(transformDebounce);
+  transformDebounce=setTimeout(()=>{
+    if(audioBuffer) drawWaveformCanvas(audioBuffer);
+    drawMiniCompareWaves();
+  },80);
+
+  clearTransformPreset();
+}
+
+function setPreviewVolume(val){
+  if(previewGain && isPreviewPlaying){
+    var tf=getTransformValues();
+    previewGain.gain.setTargetAtTime((val/100)*tf.vol, getAudioCtx().currentTime, 0.01);
+  }
+}
+
+function seekAudio(e){
+  var wrap=document.getElementById('ppWaveformWrap');
+  var rect=wrap.getBoundingClientRect();
+  var pct=Math.max(0,Math.min(1,(e.clientX-rect.left)/rect.width));
+  if(!audioBuffer)return;
+  var wasPlaying=isPreviewPlaying;
+  if(isPreviewPlaying){
+    // stop without updating offset (we'll set manually)
+    cancelAnimationFrame(animFrame);
+    if(previewSource){try{previewSource.stop();}catch(e){}previewSource=null;}
+    isPreviewPlaying=false;
+  }
+  previewOffset=pct*audioBuffer.duration;
+  updatePlayhead(pct);
+  updatePreviewTimeDisplay(previewOffset,audioBuffer.duration);
+  if(wasPlaying) startPreview();
+}
+
+// ==================== FILE UPLOAD ====================
+function handleDrop(e){e.preventDefault();document.getElementById('uploadZone').classList.remove('dragover');var f=e.dataTransfer.files[0];if(f)processFile(f);}
+function handleDragOver(e){e.preventDefault();document.getElementById('uploadZone').classList.add('dragover');}
+function handleDragLeave(){document.getElementById('uploadZone').classList.remove('dragover');}
+function handleFileSelect(e){var f=e.target.files[0];if(f)processFile(f);}
+
+function processFile(file){
+  currentFile=file;
+  processedBlob=null;processedBuffer=null;
+  document.getElementById('fileName').textContent=file.name;
+  document.getElementById('fileSize').textContent=fmtBytes(file.size);
+  document.getElementById('fileFormat').textContent=file.name.split('.').pop().toUpperCase();
+  document.getElementById('fileDuration').textContent='Loading...';
+  document.getElementById('fileInfoCard').classList.add('show');
+  document.getElementById('resultPanel').classList.remove('show');
+  document.getElementById('progressPanel').classList.remove('show');
+  stopPreview();previewOffset=0;audioBuffer=null;
+
+  var reader=new FileReader();
+  reader.onload=e=>{
+    getAudioCtx().decodeAudioData(e.target.result, buf=>{
+      audioBuffer=buf;
+      document.getElementById('fileDuration').textContent=fmtDur(buf.duration);
+      setupPreviewPlayer(file,buf);
+      addToHistory(file.name,file.name.split('.').pop().toUpperCase());
+      showToast('File loaded: '+file.name,'success');
+    }, err=>{showToast('Gagal mendecode audio — pastikan format didukung','error');});
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+function setupPreviewPlayer(file,buf){
+  var player=document.getElementById('previewPlayer');
+  player.classList.add('show');
+  document.getElementById('ppFileName').textContent=file.name.length>28?file.name.substring(0,25)+'...':file.name;
+  document.getElementById('ppDuration').textContent=fmtDur(buf.duration);
+  document.getElementById('ppFormat').textContent=file.name.split('.').pop().toUpperCase();
+  document.getElementById('ppSampleRate').textContent=buf.sampleRate+' Hz';
+  drawWaveformCanvas(buf);
+  drawMiniCompareWaves();
+  updatePreviewTimeDisplay(0,buf.duration);
+}
+
+function switchPreviewTab(tab){
+  document.getElementById('tabOrig').classList.toggle('active',tab==='original');
+  document.getElementById('tabProc').classList.toggle('active',tab==='processed');
+  if(audioBuffer) drawWaveformCanvas(audioBuffer);
+}
+
+function drawWaveformCanvas(buf){
+  var canvas=document.getElementById('ppCanvas');if(!canvas)return;
+  var wrap=document.getElementById('ppWaveformWrap');
+  canvas.width=wrap.offsetWidth||600;canvas.height=80;
+  var ctx=canvas.getContext('2d');
+  var data=buf.getChannelData(0);
+  var step=Math.ceil(data.length/canvas.width);
+  var amp=canvas.height/2;
+  var vol=getTransformValues().vol;
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  for(var i=0;i<canvas.width;i++){
+    var mn=1,mx=-1;
+    for(var j=0;j<step;j++){var v=data[i*step+j]||0;if(v<mn)mn=v;if(v>mx)mx=v;}
+    mn=Math.max(-1,Math.min(1,mn*vol));mx=Math.max(-1,Math.min(1,mx*vol));
+    var yH=amp-mx*amp*0.9;var yL=amp-mn*amp*0.9;
+    var pct=i/canvas.width;
+    ctx.strokeStyle='rgb('+(Math.floor(212+pct*43))+','+(Math.floor(175+pct*40))+','+(Math.floor(55+pct*20))+')';
+    ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(i,yH);ctx.lineTo(i,Math.max(yL,yH+1));ctx.stroke();
+  }
+}
+
+function drawMiniCompareWaves(){
+  if(!audioBuffer)return;
+  var data=audioBuffer.getChannelData(0);
+  var tf=getTransformValues();
+  drawMiniWave('pccOrigWave',data,1.0,false);
+  drawMiniWave('pccProcWave',data,tf.vol,tf.pch!==0||tf.spd!==1);
+  document.getElementById('origVolTag').textContent='100%';
+  document.getElementById('origPitchTag').textContent='0 st';
+  document.getElementById('procVolTag').textContent=Math.round(tf.vol*100)+'%';
+  document.getElementById('procPitchTag').textContent=(tf.pch>=0?'+':'')+tf.pch+' st';
+}
+function drawMiniWave(id,data,vol,shifted){
+  var wrap=document.getElementById(id);if(!wrap)return;
+  wrap.innerHTML='';
+  var count=80,step=Math.ceil(data.length/count);
+  for(var i=0;i<count;i++){
+    var mx=0;for(var j=0;j<step;j++){var v=Math.abs(data[i*step+j]||0);if(v>mx)mx=v;}
+    mx=Math.min(1,mx*vol*(shifted?1.15:1));
+    var h=Math.max(2,Math.round(mx*38));
+    var bar=document.createElement('div');bar.className='pcc-bar';
+    bar.style.height=h+'px';bar.style.background=shifted?'rgba(212,175,55,0.9)':'rgba(212,175,55,0.45)';
+    wrap.appendChild(bar);
+  }
+}
+
+// ==================== TRANSFORM ====================
+var TRANSFORM_PRESETS={
+  normal:{vol:100,spd:100,pch:0},
+  boost:{vol:180,spd:100,pch:0},
+  deep:{vol:120,spd:75,pch:-4},
+  radio:{vol:130,spd:110,pch:2},
+  chipmunk:{vol:100,spd:180,pch:8},
+  slow:{vol:110,spd:60,pch:-3},
+  cinema:{vol:160,spd:90,pch:-1},
+  concert:{vol:100,spd:100,pch:5}
+};
+function resetVolume(){document.getElementById('volSlider').value=100;onTransformChange();}
+function resetSpeed(){document.getElementById('spdSlider').value=100;onTransformChange();}
+function resetPitch(){document.getElementById('pchSlider').value=0;onTransformChange();}
+function clearTransformPreset(){document.querySelectorAll('.tp-chip').forEach(c=>c.classList.remove('active'));}
+function applyTransformPreset(el){
+  var p=TRANSFORM_PRESETS[el.dataset.preset];if(!p)return;
+  document.getElementById('volSlider').value=p.vol;
+  document.getElementById('spdSlider').value=p.spd;
+  document.getElementById('pchSlider').value=p.pch;
+  clearTransformPreset();el.classList.add('active');
+  onTransformChange();
+}
+
+// ==================== CONVERSION ENGINE ====================
+// Uses OfflineAudioContext to render audio with all transforms applied,
+// then encodes to WAV and triggers real browser download.
+
+var convStartTime=0;
+var convProgInterval=null;
+
+function startConversion(){
+  if(!audioBuffer){showToast('Upload file audio terlebih dahulu','info');return;}
+  stopPreview();
+  document.getElementById('resultPanel').classList.remove('show');
+  document.getElementById('progressPanel').classList.add('show');
+  document.getElementById('convertBtn').disabled=true;
+  buildWaveformLoading();
+  processedBlob=null;
+
+  convStartTime=Date.now();
+  var stages=['Initializing engine...','Applying volume...','Applying pitch & speed...','Rendering offline...','Encoding WAV...'];
+  var pct=0,si=0;
+  document.getElementById('progressFill').style.width='0%';
+  document.getElementById('progressPct').textContent='0%';
+  document.getElementById('progEngine').textContent='OfflineAudioContext';
+
+  // Animate progress while processing
+  convProgInterval=setInterval(()=>{
+    pct=Math.min(pct+Math.random()*3+1,88);
+    si=Math.min(Math.floor(pct/20),4);
+    document.getElementById('progressFill').style.width=pct+'%';
+    document.getElementById('progressPct').textContent=Math.floor(pct)+'%';
+    document.getElementById('progressStatusText').textContent=stages[si];
+    document.getElementById('progTime').textContent=((Date.now()-convStartTime)/1000).toFixed(1)+'s';
+    document.getElementById('progStage').textContent=(si+1)+' / 5';
+  },200);
+
+  // Run actual processing asynchronously
+  setTimeout(()=>{renderAndEncode();},100);
+}
+
+async function renderAndEncode(){
+  try{
+    var tf=getTransformValues();
+    var targetSampleRate=parseInt(document.getElementById('sampleRate').value)||44100;
+    var numChannels=parseInt(document.getElementById('channel').value)||2;
+
+    // Clamp speed for OfflineAudioContext
+    var spd=Math.max(0.0625, Math.min(4, tf.spd));
+    // Output duration accounts for speed change
+    var outDuration=audioBuffer.duration/spd;
+    var outLength=Math.ceil(outDuration*targetSampleRate);
+
+    // Create offline context
+    var offCtx=new OfflineAudioContext(numChannels, outLength, targetSampleRate);
+
+    // Build offline graph: source → gain → [optional BiquadFilter] → dest
+    var gainNode=offCtx.createGain();
+    // Volume boost enhancement toggle
+    var volBoost=document.getElementById('toggleVolumeBoost').classList.contains('on');
+    var bassBoost=document.getElementById('toggleBassBoost').classList.contains('on');
+    var normalize=document.getElementById('toggleNormalize').classList.contains('on');
+
+    gainNode.gain.value=tf.vol*(volBoost?1.4:1.0);
+    gainNode.connect(offCtx.destination);
+
+    var lastNode=gainNode;
+
+    // Bass boost via BiquadFilter
+    if(bassBoost){
+      var bassFilter=offCtx.createBiquadFilter();
+      bassFilter.type='lowshelf';
+      bassFilter.frequency.value=200;
+      bassFilter.gain.value=8;
+      bassFilter.connect(gainNode);
+      lastNode=bassFilter;
+    }
+
+    // EQ filters
+    var eqOn=document.getElementById('eqToggle').classList.contains('on');
+    if(eqOn){
+      var eqSliders=document.querySelectorAll('.eq-slider');
+      var eqFreqs=[60,170,310,600,1000,3000,6000,12000,14000,16000];
+      var prevEqNode=lastNode;
+      eqSliders.forEach((sl,i)=>{
+        var gain=parseInt(sl.value);
+        if(gain!==0){
+          var f=offCtx.createBiquadFilter();
+          f.type=(i===0)?'lowshelf':(i===eqSliders.length-1)?'highshelf':'peaking';
+          f.frequency.value=eqFreqs[i]||1000;
+          f.gain.value=gain;
+          f.Q.value=1;
+          f.connect(prevEqNode===gainNode?offCtx.destination:prevEqNode);
+          // Rebuild chain properly
+          prevEqNode=f;
+        }
+      });
+    }
+
+    var source=offCtx.createBufferSource();
+    source.buffer=audioBuffer;
+    source.playbackRate.value=spd;
+    // Pitch via detune — works in OfflineAudioContext too
+    source.detune.value=tf.pch*100;
+    source.connect(lastNode);
+    source.start(0);
+
+    var rendered=await offCtx.startRendering();
+
+    // Normalize pass
+    if(normalize){
+      var peak=0;
+      for(var ch=0;ch<rendered.numberOfChannels;ch++){
+        var chData=rendered.getChannelData(ch);
+        for(var i=0;i<chData.length;i++) if(Math.abs(chData[i])>peak) peak=Math.abs(chData[i]);
+      }
+      if(peak>0&&peak<1){
+        var normFactor=0.95/peak;
+        for(var ch=0;ch<rendered.numberOfChannels;ch++){
+          var d=rendered.getChannelData(ch);
+          for(var i=0;i<d.length;i++) d[i]*=normFactor;
+        }
+      }
+    }
+
+    processedBuffer=rendered;
+
+    // Encode to WAV
+    var wavBlob=audioBufferToWavBlob(rendered);
+    processedBlob=wavBlob;
+
+    clearInterval(convProgInterval);
+    document.getElementById('progressFill').style.width='100%';
+    document.getElementById('progressPct').textContent='100%';
+    document.getElementById('progressStatusText').textContent='Done!';
+    setTimeout(()=>showResult(rendered,wavBlob),500);
+  } catch(err){
+    clearInterval(convProgInterval);
+    document.getElementById('convertBtn').disabled=false;
+    document.getElementById('progressPanel').classList.remove('show');
+    showToast('Error: '+err.message,'error');
+    console.error(err);
+  }
+}
+
+function showResult(rendered,blob){
+  document.getElementById('progressPanel').classList.remove('show');
+  document.getElementById('resultPanel').classList.add('show');
+  document.getElementById('convertBtn').disabled=false;
+  document.getElementById('resFormat').textContent='WAV';
+  document.getElementById('resSize').textContent=fmtBytes(blob.size);
+  document.getElementById('resDuration').textContent=fmtDur(rendered.duration);
+  document.getElementById('resSampleRate').textContent=rendered.sampleRate+' Hz';
+  buildMiniWaveform();
+  showToast('Konversi selesai! Siap download.','success');
+}
+
+// ==================== REAL DOWNLOAD ====================
+function doRealDownload(){
+  if(!processedBlob){showToast('Proses konversi dulu!','info');return;}
+  var btn=document.getElementById('downloadBtn');
+  btn.disabled=true;
+  btn.innerHTML='<div class="spinner"></div> Preparing...';
+
+  // Create object URL and trigger download
+  var url=URL.createObjectURL(processedBlob);
+  var a=document.createElement('a');
+  var baseName=(currentFile?currentFile.name.replace(/\.[^/.]+$/,''):'audio_output');
+  var tf=getTransformValues();
+  var suffix='';
+  if(tf.pch!==0) suffix+='_pitch'+(tf.pch>0?'+':'')+tf.pch;
+  if(tf.spd!==1) suffix+='_speed'+tf.spd.toFixed(2).replace('.','p');
+  if(tf.vol!==1) suffix+='_vol'+Math.round(tf.vol*100);
+  a.href=url;
+  a.download=baseName+suffix+'.wav';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+
+  setTimeout(()=>{
+    URL.revokeObjectURL(url);
+    btn.disabled=false;
+    btn.innerHTML='<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v8M5 7l3 3 3-3" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 12h12" stroke="#000" stroke-width="1.8" stroke-linecap="round"/></svg> Download File';
+    showToast('File berhasil didownload!','success');
+    // Update history entry
+    historyData[0].status='success';
+    historyData[0].size=fmtBytes(processedBlob.size);
+    buildHistory();
+  },1500);
+}
+
+// ==================== WAV ENCODER ====================
+// Pure JS WAV encoder — no library needed
+function audioBufferToWavBlob(buffer){
+  var numChannels=buffer.numberOfChannels;
+  var sampleRate=buffer.sampleRate;
+  var length=buffer.length;
+  var bitsPerSample=16;
+  var byteRate=sampleRate*numChannels*(bitsPerSample/8);
+  var blockAlign=numChannels*(bitsPerSample/8);
+  var dataSize=length*numChannels*(bitsPerSample/8);
+  var headerSize=44;
+  var totalSize=headerSize+dataSize;
+
+  var buf=new ArrayBuffer(totalSize);
+  var view=new DataView(buf);
+  var offset=0;
+
+  function writeStr(s){for(var i=0;i<s.length;i++){view.setUint8(offset++,s.charCodeAt(i));}}
+  function writeU32(v){view.setUint32(offset,v,true);offset+=4;}
+  function writeU16(v){view.setUint16(offset,v,true);offset+=2;}
+
+  writeStr('RIFF');
+  writeU32(totalSize-8);
+  writeStr('WAVE');
+  writeStr('fmt ');
+  writeU32(16);       // chunk size
+  writeU16(1);        // PCM
+  writeU16(numChannels);
+  writeU32(sampleRate);
+  writeU32(byteRate);
+  writeU16(blockAlign);
+  writeU16(bitsPerSample);
+  writeStr('data');
+  writeU32(dataSize);
+
+  // Interleave channels + convert float32 → int16
+  var channels=[];
+  for(var ch=0;ch<numChannels;ch++) channels.push(buffer.getChannelData(ch));
+
+  for(var i=0;i<length;i++){
+    for(var ch=0;ch<numChannels;ch++){
+      var s=Math.max(-1,Math.min(1,channels[ch][i]));
+      var intVal=s<0?s*0x8000:s*0x7FFF;
+      view.setInt16(offset,intVal,true);
+      offset+=2;
+    }
+  }
+
+  return new Blob([buf],{type:'audio/wav'});
+}
+
+// ==================== MISC ====================
+function buildWaveformLoading(){
+  var el=document.getElementById('waveformLoading');el.innerHTML='';
+  for(var i=0;i<30;i++){var b=document.createElement('div');b.className='wl-bar';b.style.cssText='--d:'+(Math.random()*0.3+0.4).toFixed(2)+'s;--dl:'+(i*0.04).toFixed(2)+'s;height:'+(Math.floor(Math.random()*18+4))+'px;';el.appendChild(b);}
+}
+function buildMiniWaveform(){
+  var el=document.getElementById('miniWaveform');el.innerHTML='';
+  var total=80,played=30;
+  for(var i=0;i<total;i++){
+    var h=Math.floor(Math.random()*28+4);
+    var b=document.createElement('div');b.className='mwb'+(i<played?' played':'');b.style.height=h+'px';el.appendChild(b);
+  }
+}
+function toggleMiniPlay(btn){
+  var playing=btn.dataset.playing==='1';btn.dataset.playing=playing?'0':'1';
+  btn.innerHTML=playing?'<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 2l9 5-9 5V2z" fill="#000"/></svg>':'<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="1.5" width="3.5" height="11" rx="1" fill="#000"/><rect x="8.5" y="1.5" width="3.5" height="11" rx="1" fill="#000"/></svg>';
+}
+function resetConverter(){
+  currentFile=null;stopPreview();previewOffset=0;audioBuffer=null;processedBlob=null;processedBuffer=null;
+  document.getElementById('fileInfoCard').classList.remove('show');
+  document.getElementById('progressPanel').classList.remove('show');
+  document.getElementById('resultPanel').classList.remove('show');
+  document.getElementById('previewPlayer').classList.remove('show');
+  document.getElementById('fileInput').value='';
+  clearInterval(convProgInterval);
+  document.getElementById('convertBtn').disabled=false;
+}
+function selectPreset(el,preset){
+  document.querySelectorAll('.preset-btn').forEach(b=>b.classList.remove('active'));el.classList.add('active');
+  var p={low:{sr:'22050',ch:'1'},medium:{sr:'44100',ch:'1'},high:{sr:'44100',ch:'2'},studio:{sr:'48000',ch:'2'}};
+  if(p[preset]){document.getElementById('sampleRate').value=p[preset].sr;document.getElementById('channel').value=p[preset].ch;}
+}
+function selectAutoDelete(el){document.querySelectorAll('.auto-delete-btn').forEach(b=>b.classList.remove('active'));el.classList.add('active');}
+function fmtDur(s){s=Math.max(0,s||0);var m=Math.floor(s/60);var sec=Math.floor(s%60);return m+':'+(sec<10?'0':'')+sec;}
+function fmtBytes(b){if(b<1024)return b+' B';if(b<1048576)return (b/1024).toFixed(1)+' KB';return (b/1048576).toFixed(1)+' MB';}
+
+// ==================== HISTORY ====================
+var historyData=[
+  {name:'podcast_episode_42.mp3',date:'May 25, 2026',fmt:'WAV',size:'48.2 MB',status:'success'},
+  {name:'track_vocal_mix.wav',date:'May 24, 2026',fmt:'WAV',size:'82.1 MB',status:'success'},
+  {name:'background_loop.ogg',date:'May 24, 2026',fmt:'WAV',size:'4.3 MB',status:'success'},
+  {name:'interview_raw.m4a',date:'May 23, 2026',fmt:'WAV',size:'18.7 MB',status:'success'},
+  {name:'sound_fx_pack.wav',date:'May 22, 2026',fmt:'WAV',size:'12.4 MB',status:'success'},
+  {name:'studio_session_01.flac',date:'May 21, 2026',fmt:'WAV',size:'9.8 MB',status:'success'},
+  {name:'voice_memo_final.aac',date:'May 20, 2026',fmt:'WAV',size:'22.1 MB',status:'processing'}
+];
+function buildHistory(){
+  document.getElementById('historyTableBody').innerHTML=historyData.map(item=>'<tr><td style="font-weight:500;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">'+item.name+'</td><td style="color:var(--text2);font-size:13px;">'+item.date+'</td><td><span class="format-badge">'+item.fmt+'</span></td><td style="color:var(--text2);font-size:13px;">'+item.size+'</td><td><span class="status-badge '+item.status+'">'+(item.status==='success'?'● Completed':'◌ Processing')+'</span></td><td><button class="btn-dl-small">↓ Download</button></td></tr>').join('');
+}
+buildHistory();
+function addToHistory(name,ext){
+  var d=new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+  historyData.unshift({name:name,date:d,fmt:'WAV',size:'Processing...',status:'processing'});
+  buildHistory();
+}
+
+// ==================== DASHBOARD ====================
+(function(){
+  var acts=[
+    {name:'podcast_episode_42.mp3',meta:'MP3 → WAV · 44100Hz',size:'4.2 MB'},
+    {name:'studio_mix_final.wav',meta:'WAV → WAV · Lossless',size:'82 MB'},
+    {name:'background_music.ogg',meta:'OGG → WAV · 48kHz',size:'3.8 MB'},
+    {name:'interview_raw.m4a',meta:'M4A → WAV · 44100Hz',size:'18.7 MB'},
+    {name:'voice_over_final.aac',meta:'AAC → WAV · Stereo',size:'5.1 MB'}
+  ];
+  document.getElementById('activityList').innerHTML=acts.map(a=>'<div class="activity-item"><div class="act-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8h2l2-4 2 8 2-5 2 3 2-2" stroke="#D4AF37" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="act-name">'+a.name+'</div><div class="act-meta">'+a.meta+'</div></div><div class="act-size">'+a.size+'</div></div>').join('');
+  var fmts=[{name:'WAV',pct:68},{name:'MP3',pct:15},{name:'FLAC',pct:8},{name:'AAC',pct:5},{name:'OGG',pct:4}];
+  document.getElementById('formatDist').innerHTML=fmts.map(f=>'<div class="format-row"><div class="format-row-name">'+f.name+'</div><div class="format-row-bar"><div class="format-row-fill" style="width:'+f.pct+'%"></div></div><div class="format-row-pct">'+f.pct+'%</div></div>').join('');
+})();
+
+// Init transform display
+onTransformChange();
+</script>
+</body>
+</html>
