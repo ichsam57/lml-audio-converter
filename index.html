@@ -160,8 +160,8 @@ h1,h2,h3,h4,h5{font-family:'Syne',sans-serif;}
 .eq-grid{display:flex;gap:10px;align-items:flex-end;justify-content:space-between;height:100px;padding:8px 0;}
 .eq-band{display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;}
 .eq-slider-wrap{height:80px;display:flex;align-items:center;justify-content:center;}
-.eq-slider{writing-mode:vertical-lr;direction:rtl;-webkit-appearance:none;width:4px;height:70px;background:var(--black3);border-radius:2px;outline:none;cursor:pointer;}
-.eq-slider::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:12px;border-radius:50%;background:var(--gold);cursor:pointer;box-shadow:0 0 6px rgba(212,175,55,0.5);}
+.eq-slider{appearance:none;-webkit-appearance:none;background:var(--black3);border-radius:2px;outline:none;cursor:pointer;width:70px;height:4px;transform:rotate(-90deg);transform-origin:center center;}
+.eq-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:12px;height:12px;border-radius:50%;background:var(--gold);cursor:pointer;box-shadow:0 0 6px rgba(212,175,55,0.5);}
 .eq-label{font-size:9px;color:var(--text3);text-align:center;font-weight:600;letter-spacing:0.03em;}
 
 /* TRANSFORM PANEL */
@@ -900,14 +900,21 @@ function showToast(msg,type){
     c.appendChild(b);
   }
 })();
-var heroPlaying=true;
-function toggleHeroPlay(){
-  heroPlaying=!heroPlaying;
-  document.querySelectorAll('.waveform-bar').forEach(b=>b.style.animationPlayState=heroPlaying?'running':'paused');
-  document.getElementById('heroPlayBtn').innerHTML=heroPlaying?
-    '<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 2l9 5-9 5V2z" fill="#000"/></svg>':
-    '<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="3" y="2" width="3" height="10" rx="1" fill="#000"/><rect x="8" y="2" width="3" height="10" rx="1" fill="#000"/></svg>';
-}
+
+// Nonaktifkan pilihan MP3 jika lamejs tidak tersedia (fallback UX)
+(function(){
+  if(typeof lamejs==='undefined'){
+    var opt=document.querySelector('#outputFormat option[value="mp3"]');
+    if(opt){
+      opt.disabled=true;opt.textContent='MP3 — (unavailable)';
+    }
+    var mp3OptionsEl=document.getElementById('mp3Options');
+    if(mp3OptionsEl) mp3OptionsEl.classList.remove('show');
+    // Tambah tooltip kecil pada elemen format (jika perlu)
+  }
+})();
+
+onTransformChange();
 var chips=document.querySelectorAll('.format-chip'),chipIdx=0;
 setInterval(()=>{chips.forEach(c=>c.classList.remove('active'));chipIdx=(chipIdx+1)%chips.length;chips[chipIdx].classList.add('active');},1800);
 
@@ -1233,6 +1240,12 @@ var convStartTime=0,convProgInterval=null;
 function startConversion(){
   if(!audioBuffer){showToast('Upload file audio terlebih dahulu','info');return;}
   stopPreview();
+  // Jika pengguna memilih MP3 tetapi lamejs belum termuat, hentikan dan beri instruksi
+  var checkFmt=document.getElementById('outputFormat').value;
+  if(checkFmt==='mp3' && typeof lamejs==='undefined'){
+    showToast('MP3 encoder belum tersedia. Pilih WAV atau reload halaman.','error');
+    return;
+  }
   document.getElementById('resultPanel').classList.remove('show');
   document.getElementById('progressPanel').classList.add('show');
   document.getElementById('convertBtn').disabled=true;
@@ -1272,20 +1285,36 @@ async function renderAndEncode(outputFmt){
     var outDuration=audioBuffer.duration/spd;
     var outLength=Math.ceil(outDuration*targetSampleRate);
 
-    var offCtx=new OfflineAudioContext(numChannels, outLength, targetSampleRate);
+    // Safety: limit maximum render duration to avoid OOM in browser
+    var MAX_DURATION_SEC = 10*60; // 10 minutes
+    if(outDuration>MAX_DURATION_SEC){
+      clearInterval(convProgInterval);
+      document.getElementById('convertBtn').disabled=false;
+      document.getElementById('progressPanel').classList.remove('show');
+      showToast('Durasi terlalu panjang untuk konversi (lebih dari 10 menit). Potong atau turunkan sample rate.','error');
+      return;
+    }
+
+    var offCtx;
+    try{
+      offCtx=new OfflineAudioContext(numChannels, outLength, targetSampleRate);
+    } catch(e){
+      clearInterval(convProgInterval);
+      document.getElementById('convertBtn').disabled=false;
+      document.getElementById('progressPanel').classList.remove('show');
+      showToast('Gagal membuat OfflineAudioContext — kemungkinan memori tidak cukup. Coba turunkan sample rate atau durasi.','error');
+      console.error(e);
+      return;
+    }
+
     var gainNode=offCtx.createGain();
     var volBoost=document.getElementById('toggleVolumeBoost').classList.contains('on');
     var bassBoost=document.getElementById('toggleBassBoost').classList.contains('on');
     var normalize=document.getElementById('toggleNormalize').classList.contains('on');
     gainNode.gain.value=tf.vol*(volBoost?1.4:1.0);
-    gainNode.connect(offCtx.destination);
-    var lastNode=gainNode;
 
-    if(bassBoost){
-      var bassFilter=offCtx.createBiquadFilter();
-      bassFilter.type='lowshelf';bassFilter.frequency.value=200;bassFilter.gain.value=8;
-      bassFilter.connect(gainNode);lastNode=bassFilter;
-    }
+    // Build processing chain in order: EQ(s) -> Bass -> Gain -> Destination
+    var chainNodes=[];
 
     var eqOn=document.getElementById('eqToggle').classList.contains('on');
     if(eqOn){
@@ -1293,18 +1322,41 @@ async function renderAndEncode(outputFmt){
       var eqFreqs=[60,170,310,600,1000,3000,6000,12000,14000,16000];
       eqSliders.forEach((sl,i)=>{
         var gain=parseInt(sl.value);
-        if(gain!==0){
-          var f=offCtx.createBiquadFilter();
-          f.type=(i===0)?'lowshelf':(i===eqSliders.length-1)?'highshelf':'peaking';
-          f.frequency.value=eqFreqs[i]||1000;f.gain.value=gain;f.Q.value=1;
-          f.connect(lastNode===gainNode?offCtx.destination:lastNode);lastNode=f;
-        }
+        var f=offCtx.createBiquadFilter();
+        f.type=(i===0)?'lowshelf':(i===eqSliders.length-1)?'highshelf':'peaking';
+        f.frequency.value=eqFreqs[i]||1000;f.gain.value=gain;f.Q.value=1;
+        chainNodes.push(f);
       });
+    }
+
+    if(bassBoost){
+      var bassFilter=offCtx.createBiquadFilter();
+      bassFilter.type='lowshelf';bassFilter.frequency.value=200;bassFilter.gain.value=8;
+      chainNodes.push(bassFilter);
+    }
+
+    // finally push gain node and destination
+    chainNodes.push(gainNode);
+
+    // connect chain sequentially to destination
+    for(var i=0;i<chainNodes.length;i++){
+      var n=chainNodes[i];
+      if(i===chainNodes.length-1){
+        n.connect(offCtx.destination);
+      } else {
+        n.connect(chainNodes[i+1]);
+      }
     }
 
     var source=offCtx.createBufferSource();
     source.buffer=audioBuffer;source.playbackRate.value=spd;source.detune.value=tf.pch*100;
-    source.connect(lastNode);source.start(0);
+    // connect source to first chain node or directly to destination
+    if(chainNodes.length>0){
+      source.connect(chainNodes[0]);
+    } else {
+      source.connect(offCtx.destination);
+    }
+    source.start(0);
 
     var rendered=await offCtx.startRendering();
 
@@ -1345,7 +1397,7 @@ async function renderAndEncode(outputFmt){
     clearInterval(convProgInterval);
     document.getElementById('convertBtn').disabled=false;
     document.getElementById('progressPanel').classList.remove('show');
-    showToast('Error: '+err.message,'error');
+    showToast('Error: '+(err&&err.message?err.message:err),'error');
     console.error(err);
   }
 }
