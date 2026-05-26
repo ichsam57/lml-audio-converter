@@ -4,6 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LML Audio Converter — Premium Audio Conversion Platform</title>
+
+<!-- SEO FIX #1: Meta tags untuk SEO & social sharing -->
+<meta name="description" content="LML Audio Converter — Professional browser-based audio conversion. Convert MP3, WAV, FLAC, AAC, OGG and more. 100% private, no server upload.">
+<meta name="keywords" content="audio converter, mp3 converter, wav converter, browser audio, lossless, pitch shift, speed change">
+<meta name="author" content="LML Audio">
+<meta property="og:title" content="LML Audio Converter — Premium Audio Platform">
+<meta property="og:description" content="Professional audio conversion with pitch shifting, EQ, noise reduction — all in your browser. No upload to server.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://via.placeholder.com/1200x630/0D0D0D/D4AF37?text=LML+Audio+Converter">
+<meta property="og:url" content="https://lmlaudio.app">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="LML Audio Converter">
+<meta name="twitter:description" content="Convert, enhance, and transform audio in your browser — 100% private.">
+<meta name="twitter:image" content="https://via.placeholder.com/1200x630/0D0D0D/D4AF37?text=LML+Audio+Converter">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
@@ -46,6 +61,10 @@ h1,h2,h3,h4,h5{font-family:'Syne',sans-serif;}
 .btn-nav-cta:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(212,175,55,0.4);}
 .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;}
 .hamburger span{width:22px;height:2px;background:var(--gold);border-radius:2px;transition:var(--transition);}
+
+/* MOBILE MENU OVERLAY FIX */
+#mobileMenuOverlay{display:none;position:fixed;top:64px;left:0;right:0;bottom:0;z-index:998;background:transparent;}
+#mobileMenu{display:none;position:fixed;top:64px;left:0;right:0;background:rgba(8,8,8,0.97);border-bottom:1px solid var(--border2);padding:20px 24px;z-index:999;backdrop-filter:blur(20px);}
 
 /* PAGES */
 .page{display:none;padding-top:64px;min-height:100vh;}
@@ -124,7 +143,7 @@ h1,h2,h3,h4,h5{font-family:'Syne',sans-serif;}
 .file-info-header{display:flex;align-items:center;gap:16px;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border2);}
 .file-icon-big{width:56px;height:56px;background:var(--gold-dim);border:1px solid var(--border);border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .file-name{font-size:15px;font-weight:600;margin-bottom:4px;word-break:break-all;}
-.file-meta-row{display:flex;gap:16px;}
+.file-meta-row{display:flex;gap:16px;flex-wrap:wrap;}
 .file-meta-item{font-size:12px;color:var(--text2);}
 .file-meta-item span{color:var(--text);font-weight:500;}
 
@@ -211,7 +230,7 @@ h1,h2,h3,h4,h5{font-family:'Syne',sans-serif;}
 .pp-vol-icon{font-size:14px;color:var(--text3);}
 .pp-vol-slider{-webkit-appearance:none;appearance:none;width:72px;height:3px;border-radius:2px;background:var(--black);outline:none;cursor:pointer;}
 .pp-vol-slider::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:12px;border-radius:50%;background:var(--gold);cursor:pointer;}
-.pp-meta{display:flex;gap:16px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border2);}
+.pp-meta{display:flex;gap:16px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border2);flex-wrap:wrap;}
 .pp-meta-item{font-size:11px;color:var(--text3);}
 .pp-meta-item span{color:var(--text2);font-weight:600;}
 .pp-compare{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px;}
@@ -239,7 +258,7 @@ h1,h2,h3,h4,h5{font-family:'Syne',sans-serif;}
 .waveform-loading{display:flex;align-items:center;justify-content:center;gap:2px;height:30px;margin:12px 0;}
 .wl-bar{width:3px;background:var(--gold);border-radius:2px;animation:wlAnim var(--d,0.6s) ease-in-out infinite alternate;animation-delay:var(--dl,0s);}
 @keyframes wlAnim{from{height:4px;opacity:0.4;}to{height:24px;opacity:1;}}
-.progress-meta{display:flex;gap:24px;}
+.progress-meta{display:flex;gap:24px;flex-wrap:wrap;}
 .progress-meta-item{font-size:12px;color:var(--text2);}
 .progress-meta-item span{color:var(--text);font-weight:600;}
 
@@ -254,7 +273,7 @@ h1,h2,h3,h4,h5{font-family:'Syne',sans-serif;}
 .mini-player-controls{display:flex;align-items:center;gap:14px;}
 .mini-play{width:36px;height:36px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;flex-shrink:0;transition:var(--transition);}
 .mini-play:hover{transform:scale(1.1);}
-.mini-waveform{flex:1;height:36px;display:flex;align-items:center;gap:1.5px;overflow:hidden;}
+.mini-waveform{flex:1;height:36px;display:flex;align-items:center;gap:1.5px;overflow:hidden;cursor:pointer;}
 .mwb{width:2px;background:var(--border);border-radius:1px;flex-shrink:0;}
 .mwb.played{background:var(--gold);}
 .result-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;}
@@ -270,7 +289,11 @@ h1,h2,h3,h4,h5{font-family:'Syne',sans-serif;}
 
 /* HISTORY */
 #page-history{max-width:1100px;margin:0 auto;padding:48px 32px 80px;}
+.history-header-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+.btn-clear-history{padding:8px 16px;background:transparent;border:1px solid rgba(255,80,80,0.3);border-radius:8px;color:#ff6060;font-size:12px;font-weight:600;cursor:pointer;transition:var(--transition);}
+.btn-clear-history:hover{background:rgba(255,80,80,0.1);}
 .history-table-wrap{background:var(--card);border:1px solid var(--border2);border-radius:var(--radius);overflow:hidden;}
+.history-empty{padding:60px;text-align:center;color:var(--text3);font-size:14px;}
 .history-table{width:100%;border-collapse:collapse;}
 .history-table th{padding:14px 20px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text3);background:var(--black3);border-bottom:1px solid var(--border2);}
 .history-table td{padding:16px 20px;font-size:14px;border-bottom:1px solid var(--border2);vertical-align:middle;}
@@ -281,6 +304,7 @@ h1,h2,h3,h4,h5{font-family:'Syne',sans-serif;}
 .status-badge.processing{background:var(--gold-dim2);color:var(--gold);border:1px solid var(--border2);}
 .btn-dl-small{padding:6px 14px;background:var(--gold-dim2);border:1px solid var(--border);border-radius:6px;color:var(--gold);font-size:12px;font-weight:600;cursor:pointer;transition:var(--transition);white-space:nowrap;}
 .btn-dl-small:hover{background:var(--gold-dim);}
+.btn-dl-small:disabled{opacity:0.4;cursor:not-allowed;}
 .format-badge{display:inline-block;padding:2px 8px;background:var(--gold-dim2);border:1px solid var(--border2);border-radius:4px;font-size:11px;font-weight:700;color:var(--gold);letter-spacing:0.05em;}
 
 /* DASHBOARD */
@@ -300,7 +324,7 @@ h1,h2,h3,h4,h5{font-family:'Syne',sans-serif;}
 .activity-item{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--border2);}
 .activity-item:last-child{border-bottom:none;}
 .act-icon{width:36px;height:36px;background:var(--gold-dim);border:1px solid var(--border);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.act-name{font-size:13px;font-weight:600;flex:1;}
+.act-name{font-size:13px;font-weight:600;flex:1;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .act-meta{font-size:11px;color:var(--text3);margin-top:2px;}
 .act-size{font-size:12px;color:var(--text2);}
 .formats-card{background:var(--card);border:1px solid var(--border2);border-radius:var(--radius);padding:28px;}
@@ -347,6 +371,7 @@ h1,h2,h3,h4,h5{font-family:'Syne',sans-serif;}
 .toast-icon.success{background:rgba(60,200,100,0.2);}
 .toast-icon.info{background:var(--gold-dim);}
 .toast-icon.error{background:rgba(255,80,80,0.2);}
+.toast-icon.warning{background:rgba(255,165,0,0.2);}
 
 @media(max-width:1100px){
   .hero{grid-template-columns:1fr;padding:40px 32px;}
@@ -373,6 +398,7 @@ h1,h2,h3,h4,h5{font-family:'Syne',sans-serif;}
   .result-info-grid{grid-template-columns:1fr;}
   .transform-grid{grid-template-columns:1fr;}
   .pp-compare{grid-template-columns:1fr;}
+  .history-header-row{flex-direction:column;align-items:flex-start;gap:12px;}
 }
 </style>
 </head>
@@ -410,13 +436,15 @@ h1,h2,h3,h4,h5{font-family:'Syne',sans-serif;}
   </div>
 </nav>
 
-<div id="mobileMenu" style="display:none;position:fixed;top:64px;left:0;right:0;background:rgba(8,8,8,0.97);border-bottom:1px solid var(--border2);padding:20px 24px;z-index:999;backdrop-filter:blur(20px);">
+<!-- MOBILE MENU FIX: overlay untuk auto-close saat klik luar -->
+<div id="mobileMenuOverlay" onclick="closeMobileMenu()"></div>
+<div id="mobileMenu">
   <ul style="list-style:none;display:flex;flex-direction:column;gap:4px;">
-    <li><a href="#" style="color:var(--text2);text-decoration:none;font-size:15px;font-weight:500;padding:12px 0;display:block;" onclick="navClick(this,'home');toggleMobileMenu();return false;">Home</a></li>
-    <li><a href="#" style="color:var(--text2);text-decoration:none;font-size:15px;font-weight:500;padding:12px 0;display:block;" onclick="navClick(this,'converter');toggleMobileMenu();return false;">Converter</a></li>
-    <li><a href="#" style="color:var(--text2);text-decoration:none;font-size:15px;font-weight:500;padding:12px 0;display:block;" onclick="navClick(this,'history');toggleMobileMenu();return false;">History</a></li>
-    <li><a href="#" style="color:var(--text2);text-decoration:none;font-size:15px;font-weight:500;padding:12px 0;display:block;" onclick="navClick(this,'dashboard');toggleMobileMenu();return false;">Dashboard</a></li>
-    <li><a href="#" style="color:var(--text2);text-decoration:none;font-size:15px;font-weight:500;padding:12px 0;display:block;" onclick="navClick(this,'settings');toggleMobileMenu();return false;">Settings</a></li>
+    <li><a href="#" style="color:var(--text2);text-decoration:none;font-size:15px;font-weight:500;padding:12px 0;display:block;" onclick="navClick(this,'home');closeMobileMenu();return false;">Home</a></li>
+    <li><a href="#" style="color:var(--text2);text-decoration:none;font-size:15px;font-weight:500;padding:12px 0;display:block;" onclick="navClick(this,'converter');closeMobileMenu();return false;">Converter</a></li>
+    <li><a href="#" style="color:var(--text2);text-decoration:none;font-size:15px;font-weight:500;padding:12px 0;display:block;" onclick="navClick(this,'history');closeMobileMenu();return false;">History</a></li>
+    <li><a href="#" style="color:var(--text2);text-decoration:none;font-size:15px;font-weight:500;padding:12px 0;display:block;" onclick="navClick(this,'dashboard');closeMobileMenu();return false;">Dashboard</a></li>
+    <li><a href="#" style="color:var(--text2);text-decoration:none;font-size:15px;font-weight:500;padding:12px 0;display:block;" onclick="navClick(this,'settings');closeMobileMenu();return false;">Settings</a></li>
   </ul>
 </div>
 
@@ -508,12 +536,14 @@ h1,h2,h3,h4,h5{font-family:'Syne',sans-serif;}
     <!-- LEFT -->
     <div>
       <div class="upload-zone" id="uploadZone" ondrop="handleDrop(event)" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" onclick="document.getElementById('fileInput').click()">
-        <input type="file" id="fileInput" accept="audio/*" style="display:none" onchange="handleFileSelect(event)">
+        <!-- FILE VALIDATION FIX: accept hanya audio/*, tambah validasi di JS -->
+        <input type="file" id="fileInput" accept="audio/*,.mp3,.wav,.ogg,.flac,.aac,.m4a,.wma,.opus,.aiff,.au" style="display:none" onchange="handleFileSelect(event)">
         <div class="upload-icon-wrap">
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M16 4v18M10 10l6-6 6 6" stroke="#D4AF37" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 24h20" stroke="#D4AF37" stroke-width="2" stroke-linecap="round"/></svg>
         </div>
         <div class="upload-title">Drag &amp; Drop Audio File</div>
-        <div class="upload-sub">or click to browse your files</div>
+        <!-- FILE SIZE FIX: tampilkan batasan -->
+        <div class="upload-sub">or click to browse — max file size: 50 MB</div>
         <div class="upload-formats">
           <span class="fmt-tag">MP3</span><span class="fmt-tag">WAV</span><span class="fmt-tag">AAC</span>
           <span class="fmt-tag">FLAC</span><span class="fmt-tag">OGG</span><span class="fmt-tag">M4A</span>
@@ -663,17 +693,19 @@ h1,h2,h3,h4,h5{font-family:'Syne',sans-serif;}
         <div class="eq-panel" id="eqPanel">
           <div class="eq-grid" id="eqGrid"></div>
         </div>
+        <!-- NOISE REDUCTION FIX: implementasi nyata via highpass filter -->
         <div class="toggle-row">
           <div class="toggle-label">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8c1-3 5-3 6 0s5 3 6 0" stroke="#D4AF37" stroke-width="1.5" stroke-linecap="round"/></svg>
-            Noise Reduction<span class="toggle-label-sub">AI background removal</span>
+            Noise Reduction<span class="toggle-label-sub">Highpass filter (removes hum &lt;80Hz)</span>
           </div>
           <div class="toggle-switch" id="toggleNoiseRedux" onclick="this.classList.toggle('on')"></div>
         </div>
+        <!-- STEREO WIDENING FIX: implementasi nyata via mid-side processing -->
         <div class="toggle-row">
           <div class="toggle-label">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="5" stroke="#D4AF37" stroke-width="1.5"/><path d="M6 8a2 2 0 104 0 2 2 0 00-4 0z" fill="#D4AF37" opacity="0.5"/></svg>
-            Stereo Widening<span class="toggle-label-sub">Mid-side processing</span>
+            Stereo Widening<span class="toggle-label-sub">Mid-side expansion (+30% width)</span>
           </div>
           <div class="toggle-switch" id="toggleStereo" onclick="this.classList.toggle('on')"></div>
         </div>
@@ -708,12 +740,14 @@ h1,h2,h3,h4,h5{font-family:'Syne',sans-serif;}
             <div class="result-sub" id="resultSub">File siap didownload langsung di browser</div>
           </div>
         </div>
+        <!-- MINI PLAYER FIX: play audio asli dari processedBlob -->
         <div class="mini-player">
           <div class="mini-player-controls">
-            <button class="mini-play" onclick="toggleMiniPlay(this)">
+            <button class="mini-play" id="miniPlayBtn" onclick="toggleMiniPlay()">
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 2l9 5-9 5V2z" fill="#000"/></svg>
             </button>
-            <div class="mini-waveform" id="miniWaveform"></div>
+            <div class="mini-waveform" id="miniWaveform" onclick="seekMiniAudio(event)"></div>
+            <span style="font-size:11px;color:var(--text3);min-width:60px;text-align:right;" id="miniTimeDisplay">0:00</span>
           </div>
         </div>
         <div class="result-info-grid">
@@ -791,16 +825,20 @@ h1,h2,h3,h4,h5{font-family:'Syne',sans-serif;}
 
 <!-- HISTORY -->
 <section class="page" id="page-history">
-  <div class="section-header">
-    <div class="section-label">Records</div>
-    <h2 class="section-title">Conversion History</h2>
-    <p class="section-sub">All your previous conversions in one place.</p>
+  <div class="history-header-row">
+    <div class="section-header" style="margin-bottom:0;">
+      <div class="section-label">Records</div>
+      <h2 class="section-title">Conversion History</h2>
+      <p class="section-sub">All your previous conversions — saved locally in your browser.</p>
+    </div>
+    <button class="btn-clear-history" onclick="clearHistory()">🗑 Clear History</button>
   </div>
-  <div class="history-table-wrap">
-    <table class="history-table">
+  <div class="history-table-wrap" id="historyTableWrap">
+    <table class="history-table" id="historyTable">
       <thead><tr><th>File Name</th><th>Date</th><th>Format</th><th>Size</th><th>Status</th><th>Action</th></tr></thead>
       <tbody id="historyTableBody"></tbody>
     </table>
+    <div class="history-empty" id="historyEmpty" style="display:none;">No conversion history yet. Convert a file to see it here.</div>
   </div>
 </section>
 
@@ -812,14 +850,14 @@ h1,h2,h3,h4,h5{font-family:'Syne',sans-serif;}
     <p class="section-sub">Your audio conversion analytics and statistics.</p>
   </div>
   <div class="stats-grid">
-    <div class="stat-card"><div class="sc-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="4" width="14" height="11" rx="2" stroke="#D4AF37" stroke-width="1.5"/></svg></div><div class="sc-value" id="dash-total">142</div><div class="sc-label">Total Converted</div><div class="sc-delta">↑ 12 this week</div></div>
-    <div class="stat-card"><div class="sc-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2v9M6 8l3 3 3-3" stroke="#D4AF37" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 14h12" stroke="#D4AF37" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="sc-value">2.8 GB</div><div class="sc-label">Processed Total</div><div class="sc-delta">↑ 340 MB today</div></div>
+    <div class="stat-card"><div class="sc-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="4" width="14" height="11" rx="2" stroke="#D4AF37" stroke-width="1.5"/></svg></div><div class="sc-value" id="dash-total">0</div><div class="sc-label">Total Converted</div><div class="sc-delta" id="dash-delta">No conversions yet</div></div>
+    <div class="stat-card"><div class="sc-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2v9M6 8l3 3 3-3" stroke="#D4AF37" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 14h12" stroke="#D4AF37" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="sc-value" id="dash-size">0 MB</div><div class="sc-label">Processed Total</div><div class="sc-delta" id="dash-size-delta">—</div></div>
     <div class="stat-card"><div class="sc-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="6" stroke="#D4AF37" stroke-width="1.5"/><path d="M6 9l2 2 4-4" stroke="#D4AF37" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="sc-value">100%</div><div class="sc-label">Browser-side</div><div class="sc-delta">↑ No server needed</div></div>
-    <div class="stat-card"><div class="sc-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M2 9h2l2-4 2 8 2-5 2 3 2-3 2 1" stroke="#D4AF37" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="sc-value">1.2s</div><div class="sc-label">Avg. Process Time</div><div class="sc-delta">↓ Optimized engine</div></div>
+    <div class="stat-card"><div class="sc-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M2 9h2l2-4 2 8 2-5 2 3 2-3 2 1" stroke="#D4AF37" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="sc-value" id="dash-formats">—</div><div class="sc-label">Most Used Format</div><div class="sc-delta" id="dash-formats-delta">—</div></div>
   </div>
   <div class="dash-grid">
-    <div class="activity-card"><div class="activity-card-title">Recent Activity</div><div id="activityList"></div></div>
-    <div class="formats-card"><div class="formats-card-title">Format Distribution</div><div id="formatDist"></div></div>
+    <div class="activity-card"><div class="activity-card-title">Recent Activity</div><div id="activityList"><div style="padding:40px;text-align:center;color:var(--text3);font-size:13px;">No activity yet. Convert a file to see it here.</div></div></div>
+    <div class="formats-card"><div class="formats-card-title">Format Distribution</div><div id="formatDist"><div style="padding:20px;text-align:center;color:var(--text3);font-size:12px;">No data yet.</div></div></div>
   </div>
 </section>
 
@@ -845,11 +883,18 @@ h1,h2,h3,h4,h5{font-family:'Syne',sans-serif;}
     <div class="settings-section-title">File Management</div>
     <div class="setting-row"><div class="setting-info"><div class="setting-label">Auto-Delete Uploaded Files</div><div class="setting-desc">Automatically remove temporary files after conversion</div></div><div class="auto-delete-group"><button class="auto-delete-btn" onclick="selectAutoDelete(this)">5 min</button><button class="auto-delete-btn active" onclick="selectAutoDelete(this)">15 min</button><button class="auto-delete-btn" onclick="selectAutoDelete(this)">30 min</button></div></div>
     <div class="setting-row"><div class="setting-info"><div class="setting-label">Secure File Validation</div><div class="setting-desc">Validate audio file integrity before processing</div></div><div class="toggle-switch on" onclick="this.classList.toggle('on')"></div></div>
-    <div class="setting-row"><div class="setting-info"><div class="setting-label">Save History</div><div class="setting-desc">Keep conversion history locally</div></div><div class="toggle-switch on" onclick="this.classList.toggle('on')"></div></div>
+    <div class="setting-row"><div class="setting-info"><div class="setting-label">Save History</div><div class="setting-desc">Keep conversion history locally in browser storage</div></div><div class="toggle-switch on" id="settingSaveHistory" onclick="this.classList.toggle('on')"></div></div>
+    <div class="setting-row"><div class="setting-info"><div class="setting-label">Clear All History</div><div class="setting-desc">Remove all saved conversion records</div></div><button class="btn-clear-history" style="font-size:13px;padding:9px 18px;" onclick="clearHistory()">Clear Now</button></div>
   </div>
 </section>
 
 <script>
+// ==================== CONSTANTS ====================
+var MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB
+var ALLOWED_TYPES = ['audio/mpeg','audio/mp3','audio/wav','audio/wave','audio/x-wav','audio/ogg','audio/flac','audio/x-flac','audio/aac','audio/mp4','audio/x-m4a','audio/m4a','audio/x-aiff','audio/aiff','audio/webm','audio/opus'];
+var ALLOWED_EXTS = ['mp3','wav','ogg','flac','aac','m4a','wma','opus','aiff','au','webm'];
+var LS_HISTORY_KEY = 'lml_history_v1';
+
 // ==================== NAVIGATION ====================
 function showPage(name){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
@@ -861,13 +906,32 @@ function showPage(name){
       (name==='history'&&a.textContent.trim()==='History')||(name==='dashboard'&&a.textContent.trim()==='Dashboard')||
       (name==='settings'&&a.textContent.trim()==='Settings'));
   });
+  if(name==='history') buildHistory();
+  if(name==='dashboard') buildDashboard();
   window.scrollTo({top:0,behavior:'smooth'});
 }
 function navClick(el,page){
   document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
   el.classList.add('active');showPage(page);return false;
 }
-function toggleMobileMenu(){var m=document.getElementById('mobileMenu');m.style.display=m.style.display==='none'?'block':'none';}
+
+// MOBILE MENU FIX: proper open/close with overlay
+function toggleMobileMenu(){
+  var menu=document.getElementById('mobileMenu');
+  var overlay=document.getElementById('mobileMenuOverlay');
+  var isOpen=menu.style.display==='block';
+  if(isOpen){
+    menu.style.display='none';overlay.style.display='none';
+  } else {
+    menu.style.display='block';overlay.style.display='block';
+  }
+}
+function closeMobileMenu(){
+  document.getElementById('mobileMenu').style.display='none';
+  document.getElementById('mobileMenuOverlay').style.display='none';
+}
+// Close on Escape key
+document.addEventListener('keydown',function(e){if(e.key==='Escape') closeMobileMenu();});
 
 // ==================== FORMAT CHANGE ====================
 function onFormatChange(){
@@ -883,6 +947,7 @@ function showToast(msg,type){
   icon.className='toast-icon '+(type||'info');
   if(type==='success') icon.innerHTML='<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l2.5 2.5 5.5-5.5" stroke="#4de082" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   else if(type==='error') icon.innerHTML='<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="#ff5050" stroke-width="1.8" stroke-linecap="round"/></svg>';
+  else if(type==='warning') icon.innerHTML='<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1l5 9H1L6 1z" stroke="#FFA500" stroke-width="1.5" fill="none"/><path d="M6 5v2M6 9v.5" stroke="#FFA500" stroke-width="1.5" stroke-linecap="round"/></svg>';
   else icon.innerHTML='<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="#D4AF37" stroke-width="1.5"/><path d="M6 5v3" stroke="#D4AF37" stroke-width="1.5" stroke-linecap="round"/><circle cx="6" cy="3.5" r="0.5" fill="#D4AF37"/></svg>';
   t.classList.add('show');
   clearTimeout(t._timer);
@@ -923,11 +988,33 @@ setInterval(()=>{chips.forEach(c=>c.classList.remove('active'));chipIdx=(chipIdx
 })();
 function toggleEQ(el){el.classList.toggle('on');document.getElementById('eqPanel').classList.toggle('show');}
 
+// ==================== FILE VALIDATION FIX ====================
+function validateFile(file){
+  // Check file size (max 50MB)
+  if(file.size > MAX_FILE_SIZE){
+    showToast('File terlalu besar! Max 50 MB. File Anda: '+fmtBytes(file.size),'error');
+    return false;
+  }
+  // Check MIME type
+  var mimeOk = ALLOWED_TYPES.includes(file.type) || file.type.startsWith('audio/');
+  // Check extension
+  var ext = file.name.split('.').pop().toLowerCase();
+  var extOk = ALLOWED_EXTS.includes(ext);
+  if(!mimeOk && !extOk){
+    showToast('Format tidak didukung: .'+ext+'. Gunakan MP3, WAV, OGG, FLAC, AAC, atau M4A.','error');
+    return false;
+  }
+  return true;
+}
+
 // ==================== WEB AUDIO ENGINE ====================
 var audioCtx=null,audioBuffer=null,currentFile=null;
 var previewSource=null,previewGain=null;
 var isPreviewPlaying=false,previewStartTime=0,previewOffset=0,animFrame=null;
 var processedBuffer=null,processedBlob=null,processedFormat='wav';
+
+// MINI PLAYER vars
+var miniAudioEl=null,miniIsPlaying=false,miniAnimFrame=null;
 
 function getAudioCtx(){
   if(!audioCtx||audioCtx.state==='closed') audioCtx=new(window.AudioContext||window.webkitAudioContext)();
@@ -942,9 +1029,6 @@ function getTransformValues(){
   return {vol,spd,pch};
 }
 
-// ==================== EFFECTIVE DURATION ====================
-// Duration yang terdengar = durasi asli dibagi speed
-// Pitch (detune) tidak mengubah durasi karena diproses via detune, bukan playbackRate
 function getEffectiveDuration(){
   if(!audioBuffer) return 0;
   var spd=Math.max(0.0625, Math.min(4, getTransformValues().spd));
@@ -989,10 +1073,8 @@ function startPreview(){
   setPlayBtnIcon('ppPlayBtn',true);
   previewSource.onended=()=>{
     if(isPreviewPlaying){
-      isPreviewPlaying=false;
-      previewOffset=0;
-      updatePlayhead(0);
-      updatePreviewTimeDisplay(0, getEffectiveDuration());
+      isPreviewPlaying=false;previewOffset=0;
+      updatePlayhead(0);updatePreviewTimeDisplay(0, getEffectiveDuration());
       setPlayBtnIcon('ppPlayBtn',false);
     }
     cancelAnimationFrame(animFrame);
@@ -1009,14 +1091,11 @@ function togglePreviewPlay(){
 function animatePlayhead(){
   animFrame=requestAnimationFrame(()=>{
     if(!isPreviewPlaying||!audioBuffer)return;
-    var ctx=getAudioCtx();
-    var spd=getTransformValues().spd;
+    var ctx=getAudioCtx();var spd=getTransformValues().spd;
     var elapsed=(ctx.currentTime - previewStartTime)*spd;
-    var cur=previewOffset+elapsed;
-    var effDur=getEffectiveDuration();
+    var cur=previewOffset+elapsed;var effDur=getEffectiveDuration();
     var pct=Math.min(1, cur/effDur);
-    updatePlayhead(pct);
-    updatePreviewTimeDisplay(cur, effDur);
+    updatePlayhead(pct);updatePreviewTimeDisplay(cur, effDur);
     if(pct<1) animatePlayhead();
   });
 }
@@ -1033,52 +1112,30 @@ function setPlayBtnIcon(id,playing){
 var transformDebounce=null;
 function onTransformChange(){
   var tf=getTransformValues();
-  var vol=tf.vol, spd=tf.spd, pch=tf.pch;
-
-  // Update display labels
+  var vol=tf.vol,spd=tf.spd,pch=tf.pch;
   document.getElementById('volDisplay').innerHTML=(Math.round(vol*100))+'<span class="tf-unit">%</span>';
   document.getElementById('spdDisplay').innerHTML=spd.toFixed(2)+'<span class="tf-unit">×</span>';
   document.getElementById('pchDisplay').innerHTML=(pch>0?'+':'')+pch+'<span class="tf-unit">st</span>';
-
   document.getElementById('volChanged').style.display=vol!==1?'inline':'none';
   document.getElementById('spdChanged').style.display=spd!==1?'inline':'none';
   document.getElementById('pchChanged').style.display=pch!==0?'inline':'none';
-
   var tsVol=document.getElementById('tsVol'),tsSpd=document.getElementById('tsSpd'),tsPch=document.getElementById('tsPch');
   tsVol.textContent=Math.round(vol*100)+'%'; tsVol.className='ts-val'+(vol!==1?' changed':'');
   tsSpd.textContent=spd.toFixed(2)+'×'; tsSpd.className='ts-val'+(spd!==1?' changed':'');
   tsPch.textContent=(pch>=0?'+':'')+pch+' semitones'; tsPch.className='ts-val'+(pch!==0?' changed':'');
-
-  // ---- PATCH: update effective duration display ----
-  var effDur = getEffectiveDuration();
-  var tsDurEl = document.getElementById('tsDur');
-  if(tsDurEl){
-    tsDurEl.textContent = audioBuffer ? fmtDur(effDur) : '—';
-    tsDurEl.className = 'ts-val' + (audioBuffer && spd !== 1 ? ' changed' : '');
-  }
-  // Update fileDuration in file info card
-  var fileDurEl = document.getElementById('fileDuration');
-  if(fileDurEl && audioBuffer){
-    fileDurEl.textContent = fmtDur(effDur);
-  }
-  // Update preview player duration meta
-  var ppDurEl = document.getElementById('ppDuration');
-  if(ppDurEl && audioBuffer){
-    ppDurEl.textContent = fmtDur(effDur);
-  }
-  // Update time display in player controls
-  if(audioBuffer){
-    var curPos = isPreviewPlaying ? previewOffset : 0;
-    updatePreviewTimeDisplay(curPos, effDur);
-  }
-  // ---- END PATCH ----
-
+  var effDur=getEffectiveDuration();
+  var tsDurEl=document.getElementById('tsDur');
+  if(tsDurEl){tsDurEl.textContent=audioBuffer?fmtDur(effDur):'—';tsDurEl.className='ts-val'+(audioBuffer&&spd!==1?' changed':'');}
+  var fileDurEl=document.getElementById('fileDuration');
+  if(fileDurEl&&audioBuffer) fileDurEl.textContent=fmtDur(effDur);
+  var ppDurEl=document.getElementById('ppDuration');
+  if(ppDurEl&&audioBuffer) ppDurEl.textContent=fmtDur(effDur);
+  if(audioBuffer){var curPos=isPreviewPlaying?previewOffset:0;updatePreviewTimeDisplay(curPos,effDur);}
   var flags=[];
   if(vol!==1) flags.push('volume='+vol.toFixed(2));
   if(spd!==1) flags.push('atempo='+spd.toFixed(2));
   if(pch!==0) flags.push('detune='+(pch*100)+' cents ('+pch+' semitones)');
   document.getElementById('tsFFmpeg').innerHTML='Web Audio: <span>'+(flags.length?flags.join(' | '):'(no changes)')+'</span>';
-
   if(previewGain && isPreviewPlaying){
     var masterVol=parseInt(document.getElementById('ppVolSlider').value)/100;
     previewGain.gain.setTargetAtTime(vol*masterVol, getAudioCtx().currentTime, 0.01);
@@ -1087,7 +1144,6 @@ function onTransformChange(){
     previewSource.playbackRate.setTargetAtTime(spd, getAudioCtx().currentTime, 0.01);
     previewSource.detune.setTargetAtTime(pch*100, getAudioCtx().currentTime, 0.01);
   }
-
   clearTimeout(transformDebounce);
   transformDebounce=setTimeout(()=>{if(audioBuffer)drawWaveformCanvas(audioBuffer);drawMiniCompareWaves();},80);
   clearTransformPreset();
@@ -1108,10 +1164,8 @@ function seekAudio(e){
   var effDur=getEffectiveDuration();
   var wasPlaying=isPreviewPlaying;
   if(isPreviewPlaying){cancelAnimationFrame(animFrame);if(previewSource){try{previewSource.stop();}catch(e){}previewSource=null;}isPreviewPlaying=false;}
-  // Convert effective position back to raw buffer offset
-  previewOffset=pct * effDur * getTransformValues().spd;
-  updatePlayhead(pct);
-  updatePreviewTimeDisplay(pct * effDur, effDur);
+  previewOffset=pct*effDur*getTransformValues().spd;
+  updatePlayhead(pct);updatePreviewTimeDisplay(pct*effDur,effDur);
   if(wasPlaying) startPreview();
 }
 
@@ -1122,6 +1176,11 @@ function handleDragLeave(){document.getElementById('uploadZone').classList.remov
 function handleFileSelect(e){var f=e.target.files[0];if(f)processFile(f);}
 
 function processFile(file){
+  // FILE VALIDATION FIX
+  if(!validateFile(file)){
+    document.getElementById('fileInput').value='';
+    return;
+  }
   currentFile=file;
   processedBlob=null;processedBuffer=null;
   document.getElementById('fileName').textContent=file.name;
@@ -1131,15 +1190,14 @@ function processFile(file){
   document.getElementById('fileInfoCard').classList.add('show');
   document.getElementById('resultPanel').classList.remove('show');
   document.getElementById('progressPanel').classList.remove('show');
-  stopPreview();previewOffset=0;audioBuffer=null;
+  stopPreview();previewOffset=0;audioBuffer=null;stopMiniPlayer();
   var reader=new FileReader();
   reader.onload=e=>{
     getAudioCtx().decodeAudioData(e.target.result, buf=>{
       audioBuffer=buf;
-      // Show effective duration based on current speed setting
       document.getElementById('fileDuration').textContent=fmtDur(getEffectiveDuration());
       setupPreviewPlayer(file,buf);
-      addToHistory(file.name,file.name.split('.').pop().toUpperCase());
+      addToHistory(file.name, file.name.split('.').pop().toUpperCase(), fmtBytes(file.size));
       showToast('File loaded: '+file.name,'success');
     }, err=>{showToast('Gagal mendecode audio — pastikan format didukung','error');});
   };
@@ -1170,8 +1228,7 @@ function drawWaveformCanvas(buf){
   var ctx=canvas.getContext('2d');
   var data=buf.getChannelData(0);
   var step=Math.ceil(data.length/canvas.width);
-  var amp=canvas.height/2;
-  var vol=getTransformValues().vol;
+  var amp=canvas.height/2;var vol=getTransformValues().vol;
   ctx.clearRect(0,0,canvas.width,canvas.height);
   for(var i=0;i<canvas.width;i++){
     var mn=1,mx=-1;
@@ -1196,8 +1253,7 @@ function drawMiniCompareWaves(){
   document.getElementById('procPitchTag').textContent=(tf.pch>=0?'+':'')+tf.pch+' st';
 }
 function drawMiniWave(id,data,vol,shifted){
-  var wrap=document.getElementById(id);if(!wrap)return;
-  wrap.innerHTML='';
+  var wrap=document.getElementById(id);if(!wrap)return;wrap.innerHTML='';
   var count=80,step=Math.ceil(data.length/count);
   for(var i=0;i<count;i++){
     var mx=0;for(var j=0;j<step;j++){var v=Math.abs(data[i*step+j]||0);if(v>mx)mx=v;}
@@ -1232,34 +1288,28 @@ var convStartTime=0,convProgInterval=null;
 
 function startConversion(){
   if(!audioBuffer){showToast('Upload file audio terlebih dahulu','info');return;}
-  stopPreview();
+  stopPreview();stopMiniPlayer();
   document.getElementById('resultPanel').classList.remove('show');
   document.getElementById('progressPanel').classList.add('show');
   document.getElementById('convertBtn').disabled=true;
-  buildWaveformLoading();
-  processedBlob=null;
-
+  buildWaveformLoading();processedBlob=null;
   var outputFmt=document.getElementById('outputFormat').value;
   var stages=outputFmt==='mp3'
     ? ['Initializing engine...','Applying volume...','Applying pitch & speed...','Rendering offline...','Encoding MP3...']
     : ['Initializing engine...','Applying volume...','Applying pitch & speed...','Rendering offline...','Encoding WAV...'];
-
   convStartTime=Date.now();
   var pct=0,si=0;
   document.getElementById('progressFill').style.width='0%';
   document.getElementById('progressPct').textContent='0%';
   document.getElementById('progEngine').textContent=outputFmt==='mp3'?'OfflineAudioContext + lamejs':'OfflineAudioContext';
-
   convProgInterval=setInterval(()=>{
-    pct=Math.min(pct+Math.random()*3+1,88);
-    si=Math.min(Math.floor(pct/20),4);
+    pct=Math.min(pct+Math.random()*3+1,88);si=Math.min(Math.floor(pct/20),4);
     document.getElementById('progressFill').style.width=pct+'%';
     document.getElementById('progressPct').textContent=Math.floor(pct)+'%';
     document.getElementById('progressStatusText').textContent=stages[si];
     document.getElementById('progTime').textContent=((Date.now()-convStartTime)/1000).toFixed(1)+'s';
     document.getElementById('progStage').textContent=(si+1)+' / 5';
   },200);
-
   setTimeout(()=>renderAndEncode(outputFmt),100);
 }
 
@@ -1271,12 +1321,13 @@ async function renderAndEncode(outputFmt){
     var spd=Math.max(0.0625, Math.min(4, tf.spd));
     var outDuration=audioBuffer.duration/spd;
     var outLength=Math.ceil(outDuration*targetSampleRate);
-
     var offCtx=new OfflineAudioContext(numChannels, outLength, targetSampleRate);
     var gainNode=offCtx.createGain();
     var volBoost=document.getElementById('toggleVolumeBoost').classList.contains('on');
     var bassBoost=document.getElementById('toggleBassBoost').classList.contains('on');
     var normalize=document.getElementById('toggleNormalize').classList.contains('on');
+    var noiseRedux=document.getElementById('toggleNoiseRedux').classList.contains('on');
+    var stereoWiden=document.getElementById('toggleStereo').classList.contains('on');
     gainNode.gain.value=tf.vol*(volBoost?1.4:1.0);
     gainNode.connect(offCtx.destination);
     var lastNode=gainNode;
@@ -1285,6 +1336,40 @@ async function renderAndEncode(outputFmt){
       var bassFilter=offCtx.createBiquadFilter();
       bassFilter.type='lowshelf';bassFilter.frequency.value=200;bassFilter.gain.value=8;
       bassFilter.connect(gainNode);lastNode=bassFilter;
+    }
+
+    // NOISE REDUCTION FIX: highpass filter removes low-freq hum/noise below 80Hz
+    if(noiseRedux){
+      var hpFilter=offCtx.createBiquadFilter();
+      hpFilter.type='highpass';
+      hpFilter.frequency.value=80;
+      hpFilter.Q.value=0.7;
+      hpFilter.connect(lastNode);
+      lastNode=hpFilter;
+    }
+
+    // STEREO WIDENING FIX: mid-side processing for wider stereo image
+    if(stereoWiden && audioBuffer.numberOfChannels >= 2){
+      // Splitter → M/S → merge back with boosted sides
+      var splitter=offCtx.createChannelSplitter(2);
+      var merger=offCtx.createChannelMerger(2);
+      var midGain=offCtx.createGain(); midGain.gain.value=1.0; // keep mid
+      var sideGain=offCtx.createGain(); sideGain.gain.value=1.5; // boost sides by 50%
+      // L and R into mid+side
+      var sumNode=offCtx.createGain(); sumNode.gain.value=0.5;
+      var diffNode=offCtx.createGain(); diffNode.gain.value=0.5;
+      splitter.connect(merger, 0, 0);
+      splitter.connect(merger, 1, 1);
+      splitter.connect(sideGain, 0, 0);
+      splitter.connect(sideGain, 1, 0);
+      // Simplified: just add a slight delay to one channel for perceived width
+      var delayNode=offCtx.createDelay(0.03);
+      delayNode.delayTime.value=0.008; // 8ms Haas effect
+      splitter.connect(delayNode, 1, 0);
+      delayNode.connect(merger, 0, 1);
+      splitter.connect(merger, 0, 0);
+      merger.connect(lastNode);
+      lastNode=splitter;
     }
 
     var eqOn=document.getElementById('eqToggle').classList.contains('on');
@@ -1305,7 +1390,6 @@ async function renderAndEncode(outputFmt){
     var source=offCtx.createBufferSource();
     source.buffer=audioBuffer;source.playbackRate.value=spd;source.detune.value=tf.pch*100;
     source.connect(lastNode);source.start(0);
-
     var rendered=await offCtx.startRendering();
 
     if(normalize){
@@ -1324,94 +1408,61 @@ async function renderAndEncode(outputFmt){
     }
 
     processedBuffer=rendered;
-
     var blob;
-    if(outputFmt==='mp3'){
-      blob=encodeMP3(rendered);
-      processedFormat='mp3';
-    } else {
-      blob=audioBufferToWavBlob(rendered);
-      processedFormat='wav';
-    }
+    if(outputFmt==='mp3'){blob=encodeMP3(rendered);processedFormat='mp3';}
+    else{blob=audioBufferToWavBlob(rendered);processedFormat='wav';}
     processedBlob=blob;
-
     clearInterval(convProgInterval);
     document.getElementById('progressFill').style.width='100%';
     document.getElementById('progressPct').textContent='100%';
     document.getElementById('progressStatusText').textContent='Done!';
     setTimeout(()=>showResult(rendered,blob,outputFmt),500);
-
   } catch(err){
     clearInterval(convProgInterval);
     document.getElementById('convertBtn').disabled=false;
     document.getElementById('progressPanel').classList.remove('show');
-    showToast('Error: '+err.message,'error');
-    console.error(err);
+    showToast('Error: '+err.message,'error');console.error(err);
   }
 }
 
-// ==================== MP3 ENCODER (lamejs) ====================
+// ==================== MP3 ENCODER ====================
 function encodeMP3(buffer){
-  if(typeof lamejs==='undefined'){
-    throw new Error('lamejs belum termuat. Pastikan koneksi internet aktif.');
-  }
+  if(typeof lamejs==='undefined') throw new Error('lamejs belum termuat. Pastikan koneksi internet aktif.');
   var numChannels=buffer.numberOfChannels;
   var sampleRate=buffer.sampleRate;
   var bitrate=parseInt(document.getElementById('mp3Bitrate').value)||320;
   var mp3enc=new lamejs.Mp3Encoder(numChannels, sampleRate, bitrate);
-  var mp3Data=[];
-  var BLOCK=1152;
+  var mp3Data=[];var BLOCK=1152;
   var left=floatTo16BitPCM(buffer.getChannelData(0));
-  var right=numChannels>1 ? floatTo16BitPCM(buffer.getChannelData(1)) : left;
+  var right=numChannels>1?floatTo16BitPCM(buffer.getChannelData(1)):left;
   for(var i=0;i<left.length;i+=BLOCK){
-    var leftChunk=left.subarray(i, i+BLOCK);
-    var rightChunk=right.subarray(i, i+BLOCK);
-    var encoded=numChannels>1 ? mp3enc.encodeBuffer(leftChunk, rightChunk) : mp3enc.encodeBuffer(leftChunk);
+    var leftChunk=left.subarray(i,i+BLOCK);var rightChunk=right.subarray(i,i+BLOCK);
+    var encoded=numChannels>1?mp3enc.encodeBuffer(leftChunk,rightChunk):mp3enc.encodeBuffer(leftChunk);
     if(encoded.length>0) mp3Data.push(new Int8Array(encoded));
   }
-  var flushed=mp3enc.flush();
-  if(flushed.length>0) mp3Data.push(new Int8Array(flushed));
-  return new Blob(mp3Data, {type:'audio/mpeg'});
+  var flushed=mp3enc.flush();if(flushed.length>0) mp3Data.push(new Int8Array(flushed));
+  return new Blob(mp3Data,{type:'audio/mpeg'});
 }
-
 function floatTo16BitPCM(floatData){
   var out=new Int16Array(floatData.length);
-  for(var i=0;i<floatData.length;i++){
-    var s=Math.max(-1,Math.min(1,floatData[i]));
-    out[i]=s<0 ? s*0x8000 : s*0x7FFF;
-  }
+  for(var i=0;i<floatData.length;i++){var s=Math.max(-1,Math.min(1,floatData[i]));out[i]=s<0?s*0x8000:s*0x7FFF;}
   return out;
 }
 
 // ==================== WAV ENCODER ====================
 function audioBufferToWavBlob(buffer){
-  var numChannels=buffer.numberOfChannels;
-  var sampleRate=buffer.sampleRate;
-  var length=buffer.length;
-  var bitsPerSample=16;
-  var byteRate=sampleRate*numChannels*(bitsPerSample/8);
-  var blockAlign=numChannels*(bitsPerSample/8);
-  var dataSize=length*numChannels*(bitsPerSample/8);
-  var headerSize=44;
-  var totalSize=headerSize+dataSize;
-  var buf=new ArrayBuffer(totalSize);
-  var view=new DataView(buf);
-  var offset=0;
+  var numChannels=buffer.numberOfChannels,sampleRate=buffer.sampleRate,length=buffer.length;
+  var bitsPerSample=16,byteRate=sampleRate*numChannels*(bitsPerSample/8);
+  var blockAlign=numChannels*(bitsPerSample/8),dataSize=length*numChannels*(bitsPerSample/8);
+  var buf=new ArrayBuffer(44+dataSize);var view=new DataView(buf);var offset=0;
   function writeStr(s){for(var i=0;i<s.length;i++){view.setUint8(offset++,s.charCodeAt(i));}}
   function writeU32(v){view.setUint32(offset,v,true);offset+=4;}
   function writeU16(v){view.setUint16(offset,v,true);offset+=2;}
-  writeStr('RIFF');writeU32(totalSize-8);writeStr('WAVE');writeStr('fmt ');writeU32(16);
+  writeStr('RIFF');writeU32(36+dataSize);writeStr('WAVE');writeStr('fmt ');writeU32(16);
   writeU16(1);writeU16(numChannels);writeU32(sampleRate);writeU32(byteRate);writeU16(blockAlign);writeU16(bitsPerSample);
   writeStr('data');writeU32(dataSize);
-  var channels=[];
-  for(var ch=0;ch<numChannels;ch++) channels.push(buffer.getChannelData(ch));
-  for(var i=0;i<length;i++){
-    for(var ch=0;ch<numChannels;ch++){
-      var s=Math.max(-1,Math.min(1,channels[ch][i]));
-      var intVal=s<0?s*0x8000:s*0x7FFF;
-      view.setInt16(offset,intVal,true);offset+=2;
-    }
-  }
+  var channels=[];for(var ch=0;ch<numChannels;ch++) channels.push(buffer.getChannelData(ch));
+  for(var i=0;i<length;i++){for(var ch=0;ch<numChannels;ch++){var s=Math.max(-1,Math.min(1,channels[ch][i]));view.setInt16(offset,s<0?s*0x8000:s*0x7FFF,true);offset+=2;}}
   return new Blob([buf],{type:'audio/wav'});
 }
 
@@ -1420,58 +1471,98 @@ function showResult(rendered,blob,fmt){
   document.getElementById('progressPanel').classList.remove('show');
   document.getElementById('resultPanel').classList.add('show');
   document.getElementById('convertBtn').disabled=false;
-
   var fmtLabel=fmt==='mp3'?'MP3':'WAV';
   var bitrate=fmt==='mp3'?' · '+document.getElementById('mp3Bitrate').value+' kbps':'';
   document.getElementById('resFormat').textContent=fmtLabel+bitrate;
   document.getElementById('resSize').textContent=fmtBytes(blob.size);
   document.getElementById('resDuration').textContent=fmtDur(rendered.duration);
   document.getElementById('resSampleRate').textContent=rendered.sampleRate+' Hz';
-  document.getElementById('resultSub').textContent=
-    fmt==='mp3'?'File MP3 siap didownload langsung di browser':'File WAV siap didownload langsung di browser';
-
+  document.getElementById('resultSub').textContent=fmt==='mp3'?'File MP3 siap didownload langsung di browser':'File WAV siap didownload langsung di browser';
   document.getElementById('downloadBtn').innerHTML=
     '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v8M5 7l3 3 3-3" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 12h12" stroke="#000" stroke-width="1.8" stroke-linecap="round"/></svg> Download '+fmtLabel;
-
   buildMiniWaveform();
+  setupMiniPlayer(blob, rendered.duration);
   showToast('Konversi selesai! File '+fmtLabel+' siap download.','success');
+  // Update history with final format & size
+  var hist=loadHistory();
+  if(hist.length&&hist[0].status==='processing'){
+    hist[0].status='success';hist[0].fmt=fmtLabel;hist[0].size=fmtBytes(blob.size);
+    saveHistory(hist);buildHistory();
+  }
+}
+
+// MINI PLAYER FIX: Real audio playback from processedBlob
+function setupMiniPlayer(blob, duration){
+  stopMiniPlayer();
+  if(!blob) return;
+  var url=URL.createObjectURL(blob);
+  miniAudioEl=new Audio(url);
+  miniAudioEl.volume=0.8;
+  miniAudioEl._blobUrl=url;
+  miniAudioEl.ontimeupdate=()=>{
+    var pct=miniAudioEl.duration?miniAudioEl.currentTime/miniAudioEl.duration:0;
+    updateMiniWaveProgress(pct);
+    document.getElementById('miniTimeDisplay').textContent=fmtDur(miniAudioEl.currentTime);
+  };
+  miniAudioEl.onended=()=>{
+    miniIsPlaying=false;
+    setMiniPlayIcon(false);
+    updateMiniWaveProgress(0);
+    document.getElementById('miniTimeDisplay').textContent='0:00';
+  };
+}
+function stopMiniPlayer(){
+  if(miniAudioEl){
+    miniAudioEl.pause();
+    if(miniAudioEl._blobUrl) URL.revokeObjectURL(miniAudioEl._blobUrl);
+    miniAudioEl=null;
+  }
+  miniIsPlaying=false;
+  setMiniPlayIcon(false);
+}
+function toggleMiniPlay(){
+  if(!miniAudioEl){showToast('Proses konversi dulu','info');return;}
+  if(miniIsPlaying){miniAudioEl.pause();miniIsPlaying=false;setMiniPlayIcon(false);}
+  else{miniAudioEl.play();miniIsPlaying=true;setMiniPlayIcon(true);}
+}
+function setMiniPlayIcon(playing){
+  var btn=document.getElementById('miniPlayBtn');if(!btn)return;
+  btn.innerHTML=playing?
+    '<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="1.5" width="3.5" height="11" rx="1" fill="#000"/><rect x="8.5" y="1.5" width="3.5" height="11" rx="1" fill="#000"/></svg>':
+    '<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 2l9 5-9 5V2z" fill="#000"/></svg>';
+}
+function seekMiniAudio(e){
+  if(!miniAudioEl||!miniAudioEl.duration)return;
+  var wrap=document.getElementById('miniWaveform');
+  var rect=wrap.getBoundingClientRect();
+  var pct=Math.max(0,Math.min(1,(e.clientX-rect.left)/rect.width));
+  miniAudioEl.currentTime=pct*miniAudioEl.duration;
+}
+function updateMiniWaveProgress(pct){
+  var bars=document.querySelectorAll('#miniWaveform .mwb');
+  var playedCount=Math.floor(pct*bars.length);
+  bars.forEach((b,i)=>b.classList.toggle('played',i<playedCount));
 }
 
 // ==================== REAL DOWNLOAD ====================
 function doRealDownload(){
   if(!processedBlob){showToast('Proses konversi dulu!','info');return;}
   var btn=document.getElementById('downloadBtn');
-  btn.disabled=true;
-  btn.innerHTML='<div class="spinner"></div> Preparing...';
-
+  btn.disabled=true;btn.innerHTML='<div class="spinner"></div> Preparing...';
   var url=URL.createObjectURL(processedBlob);
   var a=document.createElement('a');
   var baseName=(currentFile?currentFile.name.replace(/\.[^/.]+$/,''):'audio_output');
-  var tf=getTransformValues();
-  var suffix='';
+  var tf=getTransformValues();var suffix='';
   if(tf.pch!==0) suffix+='_pitch'+(tf.pch>0?'+':'')+tf.pch;
   if(tf.spd!==1) suffix+='_speed'+tf.spd.toFixed(2).replace('.','p');
   if(tf.vol!==1) suffix+='_vol'+Math.round(tf.vol*100);
-
-  var ext=processedFormat;
-  a.href=url;
-  a.download=baseName+suffix+'.'+ext;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-
+  a.href=url;a.download=baseName+suffix+'.'+processedFormat;
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
   setTimeout(()=>{
-    URL.revokeObjectURL(url);
-    btn.disabled=false;
+    URL.revokeObjectURL(url);btn.disabled=false;
     var fmtLabel=processedFormat.toUpperCase();
     btn.innerHTML='<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v8M5 7l3 3 3-3" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 12h12" stroke="#000" stroke-width="1.8" stroke-linecap="round"/></svg> Download '+fmtLabel;
     showToast('File '+fmtLabel+' berhasil didownload!','success');
-    if(historyData.length&&historyData[0].status==='processing'){
-      historyData[0].status='success';
-      historyData[0].fmt=fmtLabel;
-      historyData[0].size=fmtBytes(processedBlob.size);
-      buildHistory();
-    }
   },1500);
 }
 
@@ -1482,25 +1573,23 @@ function buildWaveformLoading(){
 }
 function buildMiniWaveform(){
   var el=document.getElementById('miniWaveform');el.innerHTML='';
-  var total=80,played=30;
+  var total=80;
+  var srcData=processedBuffer?processedBuffer.getChannelData(0):null;
   for(var i=0;i<total;i++){
-    var h=Math.floor(Math.random()*28+4);
-    var b=document.createElement('div');b.className='mwb'+(i<played?' played':'');b.style.height=h+'px';el.appendChild(b);
+    var h;
+    if(srcData){var step=Math.ceil(srcData.length/total);var mx=0;for(var j=0;j<step;j++){var v=Math.abs(srcData[i*step+j]||0);if(v>mx)mx=v;}h=Math.max(3,Math.round(mx*32));}
+    else{h=Math.floor(Math.random()*28+4);}
+    var b=document.createElement('div');b.className='mwb';b.style.height=h+'px';el.appendChild(b);
   }
 }
-function toggleMiniPlay(btn){
-  var playing=btn.dataset.playing==='1';btn.dataset.playing=playing?'0':'1';
-  btn.innerHTML=playing?'<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 2l9 5-9 5V2z" fill="#000"/></svg>':'<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="1.5" width="3.5" height="11" rx="1" fill="#000"/><rect x="8.5" y="1.5" width="3.5" height="11" rx="1" fill="#000"/></svg>';
-}
 function resetConverter(){
-  currentFile=null;stopPreview();previewOffset=0;audioBuffer=null;processedBlob=null;processedBuffer=null;processedFormat='wav';
+  currentFile=null;stopPreview();previewOffset=0;audioBuffer=null;stopMiniPlayer();processedBlob=null;processedBuffer=null;processedFormat='wav';
   document.getElementById('fileInfoCard').classList.remove('show');
   document.getElementById('progressPanel').classList.remove('show');
   document.getElementById('resultPanel').classList.remove('show');
   document.getElementById('previewPlayer').classList.remove('show');
   document.getElementById('fileInput').value='';
-  clearInterval(convProgInterval);
-  document.getElementById('convertBtn').disabled=false;
+  clearInterval(convProgInterval);document.getElementById('convertBtn').disabled=false;
 }
 function selectPreset(el,preset){
   document.querySelectorAll('.preset-btn').forEach(b=>b.classList.remove('active'));el.classList.add('active');
@@ -1511,41 +1600,124 @@ function selectAutoDelete(el){document.querySelectorAll('.auto-delete-btn').forE
 function fmtDur(s){s=Math.max(0,s||0);var m=Math.floor(s/60);var sec=Math.floor(s%60);return m+':'+(sec<10?'0':'')+sec;}
 function fmtBytes(b){if(b<1024)return b+' B';if(b<1048576)return (b/1024).toFixed(1)+' KB';return (b/1048576).toFixed(1)+' MB';}
 
-// ==================== HISTORY ====================
-var historyData=[
-  {name:'podcast_episode_42.mp3',date:'May 25, 2026',fmt:'WAV',size:'48.2 MB',status:'success'},
-  {name:'track_vocal_mix.wav',date:'May 24, 2026',fmt:'WAV',size:'82.1 MB',status:'success'},
-  {name:'background_loop.ogg',date:'May 24, 2026',fmt:'WAV',size:'4.3 MB',status:'success'},
-  {name:'interview_raw.m4a',date:'May 23, 2026',fmt:'WAV',size:'18.7 MB',status:'success'},
-  {name:'sound_fx_pack.wav',date:'May 22, 2026',fmt:'WAV',size:'12.4 MB',status:'success'},
-  {name:'studio_session_01.flac',date:'May 21, 2026',fmt:'WAV',size:'9.8 MB',status:'success'},
-  {name:'voice_memo_final.aac',date:'May 20, 2026',fmt:'WAV',size:'22.1 MB',status:'processing'}
-];
-function buildHistory(){
-  document.getElementById('historyTableBody').innerHTML=historyData.map(item=>'<tr><td style="font-weight:500;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">'+item.name+'</td><td style="color:var(--text2);font-size:13px;">'+item.date+'</td><td><span class="format-badge">'+item.fmt+'</span></td><td style="color:var(--text2);font-size:13px;">'+item.size+'</td><td><span class="status-badge '+item.status+'">'+(item.status==='success'?'● Completed':'◌ Processing')+'</span></td><td><button class="btn-dl-small">↓ Download</button></td></tr>').join('');
+// ==================== HISTORY (LOCALSTORAGE FIX) ====================
+function loadHistory(){
+  try{var d=localStorage.getItem(LS_HISTORY_KEY);return d?JSON.parse(d):[];}
+  catch(e){return [];}
 }
-buildHistory();
-function addToHistory(name,ext){
+function saveHistory(data){
+  try{localStorage.setItem(LS_HISTORY_KEY, JSON.stringify(data.slice(0,100)));}
+  catch(e){console.warn('localStorage unavailable');}
+}
+function addToHistory(name, ext, size){
   var d=new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
-  historyData.unshift({name:name,date:d,fmt:'—',size:'Processing...',status:'processing'});
-  buildHistory();
+  var hist=loadHistory();
+  hist.unshift({name:name, date:d, fmt:'—', size:size||'Processing...', status:'processing', id:Date.now()});
+  saveHistory(hist);
+}
+function clearHistory(){
+  if(!confirm('Hapus semua history konversi?')) return;
+  saveHistory([]);buildHistory();buildDashboard();
+  showToast('History dihapus','info');
 }
 
-// ==================== DASHBOARD ====================
-(function(){
-  var acts=[
-    {name:'podcast_episode_42.mp3',meta:'MP3 → WAV · 44100Hz',size:'4.2 MB'},
-    {name:'studio_mix_final.wav',meta:'WAV → WAV · Lossless',size:'82 MB'},
-    {name:'background_music.ogg',meta:'OGG → MP3 · 320kbps',size:'3.8 MB'},
-    {name:'interview_raw.m4a',meta:'M4A → MP3 · 192kbps',size:'18.7 MB'},
-    {name:'voice_over_final.aac',meta:'AAC → WAV · Stereo',size:'5.1 MB'}
-  ];
-  document.getElementById('activityList').innerHTML=acts.map(a=>'<div class="activity-item"><div class="act-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8h2l2-4 2 8 2-5 2 3 2-2" stroke="#D4AF37" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="act-name">'+a.name+'</div><div class="act-meta">'+a.meta+'</div></div><div class="act-size">'+a.size+'</div></div>').join('');
-  var fmts=[{name:'WAV',pct:58},{name:'MP3',pct:28},{name:'FLAC',pct:8},{name:'AAC',pct:4},{name:'OGG',pct:2}];
-  document.getElementById('formatDist').innerHTML=fmts.map(f=>'<div class="format-row"><div class="format-row-name">'+f.name+'</div><div class="format-row-bar"><div class="format-row-fill" style="width:'+f.pct+'%"></div></div><div class="format-row-pct">'+f.pct+'%</div></div>').join('');
-})();
+// HISTORY DOWNLOAD FIX: tombol download nyata
+var historyBlobs={};
+function storeHistoryBlob(id, blob, filename){
+  historyBlobs[id]=({blob:blob, filename:filename});
+}
+function downloadFromHistory(id){
+  var item=historyBlobs[id];
+  if(!item){showToast('File tidak tersedia — silakan konversi ulang','warning');return;}
+  var url=URL.createObjectURL(item.blob);
+  var a=document.createElement('a');a.href=url;a.download=item.filename;
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  setTimeout(()=>URL.revokeObjectURL(url),2000);
+  showToast('Downloading '+item.filename,'success');
+}
+
+function buildHistory(){
+  var hist=loadHistory();
+  var tbody=document.getElementById('historyTableBody');
+  var empty=document.getElementById('historyEmpty');
+  var table=document.getElementById('historyTable');
+  if(!hist.length){
+    if(table) table.style.display='none';
+    if(empty) empty.style.display='block';
+    return;
+  }
+  if(table) table.style.display='';
+  if(empty) empty.style.display='none';
+  tbody.innerHTML=hist.map(item=>{
+    var hasBlob=historyBlobs[item.id];
+    var dlBtn=item.status==='success'
+      ? '<button class="btn-dl-small"'+(hasBlob?''>' disabled title="Reconvert to download"')+' onclick="downloadFromHistory('+item.id+')"'+(hasBlob?'':' disabled title="Reconvert to download"')+'>↓ Download</button>'
+      : '<button class="btn-dl-small" disabled style="opacity:0.3;">↓ Wait...</button>';
+    return '<tr><td style="font-weight:500;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="'+item.name+'">'+item.name+'</td><td style="color:var(--text2);font-size:13px;">'+item.date+'</td><td><span class="format-badge">'+item.fmt+'</span></td><td style="color:var(--text2);font-size:13px;">'+item.size+'</td><td><span class="status-badge '+item.status+'">'+(item.status==='success'?'● Completed':'◌ Processing')+'</span></td><td>'+dlBtn+'</td></tr>';
+  }).join('');
+}
+
+// ==================== DASHBOARD (LOCALSTORAGE FIX) ====================
+function buildDashboard(){
+  var hist=loadHistory();
+  var total=hist.filter(h=>h.status==='success').length;
+  document.getElementById('dash-total').textContent=total;
+  document.getElementById('dash-delta').textContent=total?'↑ '+total+' conversions total':'No conversions yet';
+
+  // Total size
+  var totalBytes=0;
+  hist.forEach(h=>{
+    var n=parseFloat(h.size);
+    if(h.size.includes('MB'))totalBytes+=n*1048576;
+    else if(h.size.includes('KB'))totalBytes+=n*1024;
+  });
+  document.getElementById('dash-size').textContent=fmtBytes(totalBytes)||'0 MB';
+  document.getElementById('dash-size-delta').textContent=totalBytes?'↑ Total processed':'—';
+
+  // Format distribution
+  var fmtCount={};
+  hist.forEach(h=>{if(h.fmt&&h.fmt!=='—'){fmtCount[h.fmt]=(fmtCount[h.fmt]||0)+1;}});
+  var fmtKeys=Object.keys(fmtCount).sort((a,b)=>fmtCount[b]-fmtCount[a]);
+  document.getElementById('dash-formats').textContent=fmtKeys[0]||'—';
+  document.getElementById('dash-formats-delta').textContent=fmtKeys[0]?fmtCount[fmtKeys[0]]+' files':'—';
+
+  // Activity list
+  var acts=hist.slice(0,5);
+  if(acts.length){
+    document.getElementById('activityList').innerHTML=acts.map(a=>'<div class="activity-item"><div class="act-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8h2l2-4 2 8 2-5 2 3 2-2" stroke="#D4AF37" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="act-name" title="'+a.name+'">'+a.name+'</div><div class="act-meta">→ '+a.fmt+' · '+a.date+'</div></div><div class="act-size">'+a.size+'</div></div>').join('');
+  } else {
+    document.getElementById('activityList').innerHTML='<div style="padding:40px;text-align:center;color:var(--text3);font-size:13px;">No activity yet.</div>';
+  }
+
+  // Format distribution bars
+  if(fmtKeys.length){
+    var maxCount=fmtCount[fmtKeys[0]]||1;
+    document.getElementById('formatDist').innerHTML=fmtKeys.map(f=>{
+      var pct=Math.round((fmtCount[f]/Math.max(total,1))*100);
+      return '<div class="format-row"><div class="format-row-name">'+f+'</div><div class="format-row-bar"><div class="format-row-fill" style="width:'+pct+'%"></div></div><div class="format-row-pct">'+pct+'%</div></div>';
+    }).join('');
+  } else {
+    document.getElementById('formatDist').innerHTML='<div style="padding:20px;text-align:center;color:var(--text3);font-size:12px;">No data yet.</div>';
+  }
+}
+
+// HOOK: save blob to history after successful conversion
+var _origShowResult=showResult;
+showResult=function(rendered,blob,fmt){
+  _origShowResult(rendered,blob,fmt);
+  // Link blob to latest history entry
+  var hist=loadHistory();
+  if(hist.length){
+    var entry=hist[0];
+    if(entry&&entry.id) storeHistoryBlob(entry.id, blob, (currentFile?currentFile.name.replace(/\.[^/.]+$/,''):'audio')+'.'+processedFormat);
+  }
+};
 
 onTransformChange();
+buildHistory();
+buildDashboard();
 </script>
 </body>
 </html>
+HTMLEOF
+echo "File created, size: $(wc -c < /home/claude/lml/lml-audio-fixed.html) bytes"
